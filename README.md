@@ -1,9 +1,10 @@
 <p align="center">  
-  <img src="https://image-placeholder.com/images/actual-size/200x200.png">
+  <img src="https://user-images.githubusercontent.com/128430557/229895874-156926c3-0a1c-4924-9385-6ef085332249.png">
 </p>
 
 ## Sobre
-Descrição do projeto (matheus vai colocar)
+Descrição do projeto: 
+  O projeto consiste em, estreitar o relacionamento entre estúdios de gravação/ensaio e artistas/músicos através de uma plataforma online. Através da aplicação será possível o estúdio cadastrar todas as suas salas e equipamentos disponíveis de acordo com a data selecionada, assim quando o músico tiver acesso a aplicação ele pode filtrar a disponibilidades de estúdios através da aplicação por data, tipo de equipamento, tipo de sala e localização. Com isso, o problema de comunicação entre as duas pontas seria atenuado
 
 <hr>
 
