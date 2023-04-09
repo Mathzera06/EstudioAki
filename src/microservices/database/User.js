@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize')
-const db = require('./db')
+const db = require('./db');
 
 const User = db.define('users', {
     id: {
@@ -12,7 +12,7 @@ const User = db.define('users', {
         type: Sequelize.STRING,
         allowNull: false
     },
-    last_name:{
+    last_name: {
         type: Sequelize.STRING,
         allowNull: false
     },
@@ -24,6 +24,8 @@ const User = db.define('users', {
         type: Sequelize.INTEGER,
         allowNull: false
     }
-})
-User.sync();
-module.exports= User;
+}, { underscored: true })
+
+User.sync({ alter: true });
+
+module.exports = User;
