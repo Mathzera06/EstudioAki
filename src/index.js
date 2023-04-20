@@ -2,12 +2,13 @@ import { render } from '@testing-library/react';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Logosa from './componentes/imgs/Logo.png'
+import Banner from './componentes/imgs/studio.jpg'
 import './index.css'
 
 class App extends React.Component {
 
   componentDidMount() {
-    document.body.style.backgroundColor = '#0E243B';
+    // document.body.style.backgroundColor = '#0E243B';
   }
 
 
@@ -40,17 +41,32 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className='navbar'>
-        <img src={Logosa} className='logo' />
-        <ul>
-          <li><a href="#">home</a></li>
-          <li><a href="#">home</a></li>
-          <li><a href="#">home</a></li>
-          <li><a href="#">home</a></li>
-          <li><a href="#">home</a></li>
-        </ul>
+      <div className='banner'>
+        <div className='navbar'>
+          <img src={Logosa} className='logo' />
+          <ul>
+            <li><a href="#">home</a></li>
+            <li><a href="#">ENSAIO</a></li>
+            <li><a href="#">Gravação</a></li>
+            <li><a href="#">Contato</a></li>
+            <li><a href="#"></a></li>
+          </ul>
+        </div>
+
+        <div className="content">
+          <h1>ENCONTRE SEU STUDIO</h1>
+          <p>seja para gravar ou ensaiar,
+            <br/> aqui você vai encontrar o studio que esta peocurando</p>
+            <div>
+              <button type='button'><span> </span> SAIBA MAIS</button>
+              <button type='button'><span> </span>VEJA OS STUDIOS</button>
+            </div>
+          
+        </div>
+
       </div>
-  )
+
+    )
   }
 }
 
