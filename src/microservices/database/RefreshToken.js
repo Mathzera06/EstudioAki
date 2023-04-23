@@ -21,6 +21,8 @@ RefreshToken.belongsTo(User, {
         allowNull: false
     }
 });
+
+// Define aqui pois havia dado problema ao definir na model User.js
 User.hasMany(RefreshToken);
 
 RefreshToken.sync({ alter: true });

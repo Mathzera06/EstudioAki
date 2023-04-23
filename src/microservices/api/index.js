@@ -9,7 +9,7 @@ app.get('/', async (req, res) => {
 }); 
 
 app.get('/my-account', jwtAuthentication, (req, res) => {
-    res.json(200);
+    res.json(200); 
 });
 
 app.listen(4000, () => {

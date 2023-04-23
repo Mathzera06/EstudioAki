@@ -5,14 +5,12 @@ const express = require('express');
 const app = express();
 app.use(express.json());
 
-// User Models
+// Models
 const User = require('../database/User');
 const RefreshToken = require('../database/RefreshToken');
 
 // JWT
 const jwt = require('jsonwebtoken');
-
-let refreshTokens = [];
 
 app.post('/signup', async (req, res) => {
     // Add Input validation here
@@ -102,7 +100,7 @@ function generateAccessToken(user) {
 
 async function generateRefreshToken(user) {
     const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET_KEY);
-    console.log('refreToken', refreshToken);
+
     await RefreshToken.create({
         key: refreshToken,
         userId: user.id
