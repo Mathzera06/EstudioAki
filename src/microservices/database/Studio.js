@@ -37,7 +37,9 @@ const Studio = db.define('studios', {
 
 Studio.belongsTo(User, {
     foreignKey: {
-        allowNull: false
+        name: 'user_id',
+        allowNull: false,
+        underscored: true
     }
 });
 User.hasMany(Studio);
