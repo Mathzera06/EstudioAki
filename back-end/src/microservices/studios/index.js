@@ -14,6 +14,7 @@ const Studio = require('../database/Studio');
 const StudioSchedule = require('../database/StudioSchedule');
 const Instruments = require('../database/Instruments');
 const User = require('../database/User');
+const { Op } = require('sequelize');
 
 app.post('/studios', jwtAuthentication, async (req, res) => {
     const {
@@ -54,6 +55,18 @@ app.post('/studios', jwtAuthentication, async (req, res) => {
         return res.json('Não foi possível adicionar o estúdio', 400);
     });
 });
+
+app.get('/studios', jwtAuthentication, async (req, res) => {
+    const studios = await Studio.findAll({
+        where: {
+            name: {
+                [Op.like]: `%${req.body.q}%`
+            }
+        }
+    });
+    console.log(studios);
+    return res.send(studios, 200);
+})
 
 app.listen(5000, () => {
     console.log('Studios is listening on PORT 5000');
