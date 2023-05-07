@@ -49,12 +49,19 @@ app.post('/studios', jwtAuthentication, async (req, res) => {
 
     const studioData = { ...requiredFields, complement, number };
     await Studio.create(studioData).then(() => {
+        axios.post('http://localhost:7000/event')
         return res.json('Estudio adicionado com sucesso', 201);
     }).catch(error => {
         console.log(error);
         return res.json('Não foi possível adicionar o estúdio', 400);
     });
 });
+
+app.post('/event', (req, res) => {
+    const {evento} = req.body
+    console.log(evento)
+    return res.status(200)
+})
 
 app.get('/studios', jwtAuthentication, async (req, res) => {
     const studios = await Studio.findAll({

@@ -1,3 +1,4 @@
+const axios = require('axios')
 require('dotenv').config({ path: '../../../.env' });
 
 // Express Config
@@ -24,6 +25,7 @@ app.post('/signup', async (req, res) => {
 
     await User.create(req.body)
         .then(() => {
+            axios.post('http://localhost:7000/event', {log: "New user"})
             return res.json({
                 error: false,
                 message: "Usuário Cadastrado com sucesso"
@@ -35,6 +37,12 @@ app.post('/signup', async (req, res) => {
             });
         });
 });
+
+app.post('/event', (req, res) => {
+    const {evento} = req.body
+    console.log(evento)
+    return res.status(200)
+})
 
 app.post('/login', async (req, res) => {
     const { email, password } = req.body;
