@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Logosa from './componentes/imgs/Logo.png'
 // import Banner from './componentes/imgs/studio.jpg'
 
+
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 
@@ -32,15 +33,15 @@ export function Navegacao() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto" >
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#link">Estúdios</Nav.Link>
-            <Nav.Link href="#link">Contato</Nav.Link>
-            <Nav.Link href="#link">Espaço Disponível</Nav.Link>
-            <Nav.Link href="#link">Espaço Disponível</Nav.Link>
+            <Nav.Link href="#home" style={{ color: "#ffffff" }} >Home</Nav.Link>
+            <Nav.Link href="#link" style={{ color: "#ffffff" }}>Estúdios</Nav.Link>
+            <Nav.Link href="#link" style={{ color: "#ffffff" }}>Contato</Nav.Link>
+            <Nav.Link href="#link" style={{ color: "#ffffff" }}>Cadastre seu Estudio</Nav.Link>
+            <Nav.Link href="#link" style={{ color: "#ffffff" }}>Encontre Estudios</Nav.Link>
             </Nav>
 
-            <NavDropdown className="ms-auto" title="Conta" id="basic-nav-dropdown" >
-              <NavDropdown.Item href="#action/3.1">Minha conta</NavDropdown.Item>
+            <NavDropdown className="ms-auto" title="Conta" id="basic-nav-dropdown" style={{ color: "#ffffff" }} >
+              <NavDropdown.Item href="#action/3.1" >Minha conta</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">
                 Another action
               </NavDropdown.Item>

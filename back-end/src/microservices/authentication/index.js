@@ -12,6 +12,9 @@ const RefreshToken = require('../database/RefreshToken');
 // JWT
 const jwt = require('jsonwebtoken');
 
+var cors = require('cors')
+app.use(cors());
+
 app.post('/signup', async (req, res) => {
     // Add Input validation here
 
