@@ -1,20 +1,19 @@
 import React from "react";
-import { HeroSection } from "./HeroSection";
-import { Navegacao } from "./navegacao";
-import {Footer} from "./footer"
-import Studioimg from "./componentes/imgs/studio.jpg"
-import {Cards} from "./Cards"
+import About from "./pages/home/About";
+import Header from "./pages/home/Header";
+import Navigation from "./components/Navigation";
+import Gallery from "./pages/home/Gallery";
 
-
-export function Home (){
-    return(
+export function Home() {
+    return (
         <>
-
-        <Navegacao />
-        <HeroSection/>
-        <Cards/>
-        <Footer />
-        
+            <Navigation />
+            <Header />
+            <About />
+            <Gallery />
+            {/* <HeroSection /> */}
+            {/* <Cards /> */}
+            {/* <Footer /> */}
         </>
     )
 }

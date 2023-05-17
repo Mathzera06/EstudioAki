@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-
 // import Banner from './componentes/imgs/studio.jpg'
-
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -9,7 +7,6 @@ import './footer.css';
 import Container from 'react-bootstrap/Container';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram } from '@fortawesome/free-brands-svg-icons';
-
 
 export function Footer() {
     return (

@@ -1,20 +1,16 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Navegacao } from './navegacao';
-import './loginstyle.css';
-import './style.css';
-import Logogoogle from './componentes/imgs/Google.png';
-import stereo from './componentes/imgs/stereo.png'
+// import { Navegacao } from './navegacao';
+// import Logogoogle from './componentes/imgs/Google.png';
+// import stereo from './componentes/imgs/stereo.png'
 import { Password } from 'primereact/password';
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 import "/node_modules/primeflex/primeflex.css";
 import axios from 'axios'
-import { NavLink, useHistory, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { Alert } from 'react-bootstrap';
-
-
 
 export function Signup() {
 
@@ -54,7 +50,7 @@ export function Signup() {
 
     return (
         <>
-            <Navegacao />
+            {/* <Navegacao /> */}
             <form onSubmit={onSubmitFunction}  >
                 <div style={{ background: "#0E243B" }}>
                     <div className="container d-flex justify-content-center align-items-center min-vh-100">
@@ -64,7 +60,7 @@ export function Signup() {
                                 style={{ background: "#546CCF" }}
                             >
                                 <div className="featured-image mb-3">
-                                    <img src={stereo} className="img-fluid" style={{ width: "150px" }} alt="featured" />
+                                    {/* <img src={stereo} className="img-fluid" style={{ width: "150px" }} alt="featured" /> */}
                                 </div>
                                 <p
                                     className="text-white fs-2"
@@ -135,7 +131,7 @@ export function Signup() {
                                     </div>
                                     <div className="input-group mb-3">
                                         <button className="btn btn-lg btn-light w-100 fs-6">
-                                            <img src={Logogoogle} style={{ width: "20px" }} className="me-2" alt="google" />
+                                            {/* <img src={Logogoogle} style={{ width: "20px" }} className="me-2" alt="google" /> */}
                                             <small>Criar conta usando o Google</small>
                                         </button>
                                     </div>
