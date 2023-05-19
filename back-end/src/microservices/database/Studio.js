@@ -44,6 +44,6 @@ Studio.belongsTo(User, {
 });
 User.hasMany(Studio);
 
-Studio.sync({ alter: true });
+Studio.sync({ alter: false });
 
 module.exports = Studio;

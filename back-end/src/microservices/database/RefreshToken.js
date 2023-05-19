@@ -25,6 +25,6 @@ RefreshToken.belongsTo(User, {
 // Define aqui pois havia dado problema ao definir na model User.js
 User.hasMany(RefreshToken);
 
-RefreshToken.sync({ alter: true });
+RefreshToken.sync({ alter: false });
 
 module.exports = RefreshToken;

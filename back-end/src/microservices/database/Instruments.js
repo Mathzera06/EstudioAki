@@ -26,6 +26,6 @@ Instruments.belongsTo(Studio, {
 })
 Studio.hasMany(Instruments);
 
-Instruments.sync({ alter: true });
+Instruments.sync({ alter: false });
 
 module.exports = Instruments;

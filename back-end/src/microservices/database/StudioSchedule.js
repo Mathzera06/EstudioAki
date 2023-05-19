@@ -30,6 +30,6 @@ StudioSchedule.belongsTo(Studio, {
 });
 Studio.hasMany(StudioSchedule);
 
-StudioSchedule.sync({ alter: true });
+StudioSchedule.sync({ alter: false });
 
 module.exports = StudioSchedule;
