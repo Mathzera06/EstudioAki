@@ -36,7 +36,7 @@ logger.log({
 app.post('/event', (req, res) => {
     const {event} = req.body
     console.log(event)
-    return res.status(200)
+    return res.send(200)
 })
 
 app.listen(6000, () => {

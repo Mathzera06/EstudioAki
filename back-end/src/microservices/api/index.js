@@ -9,6 +9,12 @@ app.get('/', async (req, res) => {
     res.send("Página Inicial - StudioAki")
 }); 
 
+app.post('/event', (req, res) => {
+    const {evento} = req.body
+    console.log(evento)
+    return res.send(200)
+})
+
 app.get('/my-account', jwtAuthentication, (req, res) => {
     res.json(200); 
 }); 

@@ -44,7 +44,7 @@ app.post('/signup', async (req, res) => {
 app.post('/event', (req, res) => {
     const {evento} = req.body
     console.log(evento)
-    return res.status(200)
+    return res.send(200);
 })
 
 app.post('/login', async (req, res) => {
