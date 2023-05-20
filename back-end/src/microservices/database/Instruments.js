@@ -21,7 +21,9 @@ const Instruments = db.define('instruments', {
 
 Instruments.belongsTo(Studio, {
     foreignKey: {
-        allowNull: false
+        name: 'studio_id',
+        allowNull: false,
+        underscored: true
     }
 })
 Studio.hasMany(Instruments);
