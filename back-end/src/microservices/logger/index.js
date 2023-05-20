@@ -5,11 +5,11 @@ const winston = require('winston')
 const { format, createLogger, transports } = require('winston')
 const { timestamp, combine, printf } = format;
 
-const logFormat = format.printf(({level, message, timestamp}) => {
-    return `${timestamp} ${level}: ${message}`  
+const logFormat = format.printf(({ level, message, timestamp }) => {
+    return `${timestamp} ${level}: ${message}`
 })
 
-// const logger = createLogger({
+// const logger = winston.createLogger({
 //     format: format.combine(
 //         format.colorize(),
 //         timestamp({format: 'YYYY-MM-DD HH:mm:ss' }), logFormat),
@@ -18,24 +18,27 @@ const logFormat = format.printf(({level, message, timestamp}) => {
 
 const logger = winston.createLogger({
     level: 'info',
-    format: winston.format.json(timestamp('YYYY-MM-DD HH:mm:ss'), logFormat),
-    defaultMeta: {service: 'user-service'},
+    format: format.combine(
+        format.colorize(),
+        timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }), logFormat), defaultMeta: { service: 'user-service' },
     transports: [
-        new winston.transports.File({filename: 'error.log', level:'error'}),
-        new winston.transports.File({ filename: 'express.log'})
+        new winston.transports.File({ filename: 'error.log', level: 'error' }),
+        new winston.transports.File({ filename: 'express.log', leve: 'info' })
     ]
 })
 
 //logger.add(new winston.transports.Http(options)) 
 
-logger.log({
-    level: 'info',
-    message: 'event.log'
-})
 
 app.post('/event', (req, res) => {
-    const {event} = req.body
-    console.log(event)
+    const evento = req.body
+    console.log('loggin', evento);
+
+    logger.log({
+        level: 'info',
+        message: evento.log
+    })
+
     return res.send(200)
 })
 

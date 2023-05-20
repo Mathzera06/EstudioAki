@@ -58,7 +58,7 @@ app.post('/studios', jwtAuthentication, async (req, res) => {
 });
 
 app.post('/event', (req, res) => {
-    const {evento} = req.body
+    const evento = req.body
     console.log(evento)
     return res.send(200)
 })
