@@ -3,8 +3,6 @@ const app = express()
 app.use(express.json())
 const axios = require('axios')
 
-const event = []
-
 app.post('/event', async (req, res) => {
     const evento = req.body
     console.log('event received', evento);
