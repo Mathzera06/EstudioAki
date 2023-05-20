@@ -40,7 +40,7 @@ app.post('/studios', jwtAuthentication, async (req, res) => {
     if (!user) return res.send('Usuário não encontrado', 400);
 
     const studio = await Studio.findOne({
-        where: {
+        where: { 
             name,
             user_id
         }
@@ -49,7 +49,7 @@ app.post('/studios', jwtAuthentication, async (req, res) => {
 
     const studioData = { ...requiredFields, complement, number };
     await Studio.create(studioData).then(() => {
-        // axios.post('http://localhost:7000/event')
+        //axios.post('http://localhost:7000/event')
         return res.json('Estudio adicionado com sucesso', 201);
     }).catch(error => {
         console.log(error);
@@ -58,7 +58,7 @@ app.post('/studios', jwtAuthentication, async (req, res) => {
 });
 
 app.post('/event', (req, res) => {
-    const evento = req.body
+    const {evento} = req.body
     console.log(evento)
     return res.send(200)
 })
@@ -75,23 +75,45 @@ app.get('/studios', jwtAuthentication, async (req, res) => {
     return res.send(studios, 200);
 })
 
-app.post('/studios/:id/instruments', jwtAuthentication, async (request, response) => {
-    const studio_id = request.params.id;
-    const { name, description } = request.body;
+app.post('/studios/:id/instruments', jwtAuthentication, async (req, res) => {
+    const studio_id = req.params.id;
+    const { name, description } = req.body;
 
     const studio = await Studio.findByPk(studio_id);
-    if (!studio) return response.json('Estúdio inválido', 400);
+    if (!studio) return res.json('Estúdio inválido', 400);
 
     await Instruments.create({ 
         name,
         description,
         studio_id
      }).then(() => {
-        return response.json('Instrumento adicionado com sucesso', 201);
+        return res.json('Instrumento adicionado com sucesso', 201);
     }).catch(error => {
         console.log(error);
-        return response.json('Não foi possível adicionar o instrumento', 400);
+        return res.json('Não foi possível adicionar o instrumento', 400);
     });
+})
+
+app.get('/studios/:id/instruments', async(req, res) => {
+    const studio_id = req.params.id;
+    
+    const studio = await Studio.findByPk(studio_id);
+    if (!studio) return res.json('Estúdio não encontrado', 400);
+
+    const instruments = await Instruments.findAll({
+        where: { studio_id: studio_id }
+    })
+    return res.json(instruments)
+});
+
+app.get('/studios/:id', async(req, res) => {
+    const studio_id = req.params.id;
+
+    const studio = await Studio.findByPk(studio_id);
+    if (!studio){
+        return res.status(404).json({error: "Estúdio não encontrado"});
+    }
+    return res.json(studio, 200)
 })
 
 app.listen(5000, () => {
