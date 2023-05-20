@@ -1,2 +1,4 @@
 node_modules
 logs
+express.log
+error.log
