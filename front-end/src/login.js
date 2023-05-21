@@ -28,7 +28,8 @@ export function Login() {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
       }
-    }).then(res => {
+    }).then(response => {
+      localStorage.setItem('token', response.data.accessToken);
       navigate('/');
     }).catch(error => {
       console.error(error);

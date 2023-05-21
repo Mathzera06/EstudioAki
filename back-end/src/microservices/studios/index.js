@@ -9,6 +9,9 @@ app.use(express.json());
 const jwt = require('jsonwebtoken');
 const { jwtAuthentication } = require('../authentication/middleware');
 
+var cors = require('cors')
+app.use(cors());
+
 // Models
 const Studio = require('../database/Studio');
 const StudioSchedule = require('../database/StudioSchedule');
