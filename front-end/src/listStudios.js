@@ -19,7 +19,7 @@ export function StudioList() {
           'Accept': 'application/json',
         },
         params: {
-          q: searchTerm // passando o valor de busca como parâmetro
+          q: searchTerm.trim()
         }
       });
       setStudios(response.data);

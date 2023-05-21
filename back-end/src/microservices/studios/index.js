@@ -67,10 +67,11 @@ app.post('/event', (req, res) => {
 })
 
 app.get('/studios', jwtAuthentication, async (req, res) => {
+    const { q } = req.query; // Access the 'q' query parameter
     const studios = await Studio.findAll({
         where: {
             name: {
-                [Op.like]: `%${req.body.q}%`
+                [Op.like]: `%${q}%`
             }
         }
     });
