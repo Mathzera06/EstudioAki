@@ -6,7 +6,7 @@ import { Password } from 'primereact/password';
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Alert } from 'react-bootstrap';
 
 export function Login() {
@@ -101,15 +101,12 @@ export function Login() {
                     <button className="btn btn-lg btn-primary w-100 fs-6" style={{ background: '#546CCF' }}>Entrar</button>
                   </div>
                 </form>
-                <div className="input-group mb-3">
-                  <button className="btn btn-lg btn-light w-100 fs-6">
-                    {/* <img src={Logogoogle} style={{ width: "20px" }} className="me-2" alt="google" /> */}
-                    <small>Entrar com sua conta Google</small>
-                  </button>
-                </div>
                 <div className="row">
                   <small>
-                    Ainda não tem uma conta? <a href="#">Cadastre-se</a>
+                    Ainda não tem uma conta? 
+                    <Link to="/cadastrar" className='ms-2'>
+                      Cadastre-se
+                    </Link>
                   </small>
                 </div>
               </div>

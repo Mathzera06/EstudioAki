@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Navigation = () => {
     return (
@@ -8,8 +9,16 @@ const Navigation = () => {
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="#!">Sign Up</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">Log In</a></li>
+                        <li class="nav-item">
+                            <Link to={'/login'} className='nav-link'>
+                                Entrar
+                            </Link>
+                        </li>
+                        <li class="nav-item bg-dark text-info ms-2">
+                            <Link class="nav-link text-white" to="/cadastrar">
+                                Criar Conta
+                            </Link>
+                        </li>
                     </ul>
                 </div>
             </div>

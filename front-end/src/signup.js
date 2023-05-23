@@ -8,7 +8,7 @@ import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 import "/node_modules/primeflex/primeflex.css";
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { Alert } from 'react-bootstrap';
 
@@ -126,14 +126,13 @@ export function Signup() {
 
 
 
-                                    <div className="input-group mb-3">
+                                    <div className="input-group mb-3 mt-4">
                                         <button type='submit' className="btn btn-lg btn-primary w-100 fs-6" style={{ background: '#546CCF' }} >Criar</button>
                                     </div>
-                                    <div className="input-group mb-3">
-                                        <button className="btn btn-lg btn-light w-100 fs-6">
-                                            {/* <img src={Logogoogle} style={{ width: "20px" }} className="me-2" alt="google" /> */}
-                                            <small>Criar conta usando o Google</small>
-                                        </button>
+                                    <div className="input-group mb-2">
+                                        <Link to={'/login'} className='btn btn-lg btn-light w-100 fs-6'>
+                                            Já possui uma conta? <span className='text-primary'>Faça login</span>
+                                        </Link>
                                     </div>
 
                                 </div>
