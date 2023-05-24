@@ -11,6 +11,7 @@ import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { Alert } from 'react-bootstrap';
+import Navigation from './components/Navigation';
 
 export function Signup() {
 
@@ -50,7 +51,7 @@ export function Signup() {
 
     return (
         <>
-            {/* <Navegacao /> */}
+            <Navigation />
             <form onSubmit={onSubmitFunction}  >
                 <div style={{ background: "#0E243B" }}>
                     <div className="container d-flex justify-content-center align-items-center min-vh-100">
