@@ -67,13 +67,13 @@ export function Signup() {
                                     className="text-white fs-2"
                                     style={{ fontFamily: "'Courier New', Courier, monospace", fontWeight: "600" }}
                                 >
-                                    Entre
+                                    Junte-se
                                 </p>
                                 <small
                                     className="text-white text-wrap text-center"
                                     style={{ width: "17rem", fontFamily: "'Courier New', Courier, monospace" }}
                                 >
-                                    Encontre o estudio que você quer!!
+                                    Faça parte da banda!!
                                 </small>
                             </div>
                             <div className="col-md-6 right-box">
