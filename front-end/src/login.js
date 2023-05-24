@@ -8,6 +8,7 @@ import "primereact/resources/primereact.min.css";
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom';
 import { Alert } from 'react-bootstrap';
+import Navigation from './components/Navigation';
 
 export function Login() {
 
@@ -39,7 +40,7 @@ export function Login() {
 
   return (
     <section>
-      {/* <Navegacao /> */}
+      <Navigation />
       <div style={{ background: "#0E243B" }}>
         <div className="container d-flex justify-content-center align-items-center min-vh-100">
           <div className="row border rounded-5 p-3 bg-white shadow box-area">
