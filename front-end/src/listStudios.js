@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
+import Navigation from './components/Navigation';
 
 export function StudioList() {
   const [studios, setStudios] = useState([]);
@@ -34,10 +36,12 @@ export function StudioList() {
   };
 
   return (
+    <div style={{ background: "#ee0979", minHeight: "100vh", display: "flex", alignItems: "center" }}>
     <div className="container">
-      <h1>Lista de Estúdios</h1>
-      <div className="row">
-        <div className="col-md-6 mb-4">
+      <Navigation />
+      <h1 className="text-center mt-8 text-white">Lista de Estúdios</h1>
+      <div className="row justify-content-center">
+        <div className="col-md-6 mb-4 d-flex justify-content-center">
           <input
             type="text"
             className="form-control"
@@ -45,23 +49,26 @@ export function StudioList() {
             value={searchTerm}
             onChange={handleSearch}
           />
-          <button onClick={fetchStudios}>Buscar</button>
+          <button className="btn btn-primary ml-2" onClick={fetchStudios}>Buscar</button>
         </div>
       </div>
-      <div className="row">
+      <div className="row justify-content-center">
         {studios.map((studio) => (
           <div key={studio.id} className="col-md-4">
             <div className="card mb-4">
               <div className="card-body">
                 <h5 className="card-title">{studio.name}</h5>
                 <p className="card-text">
-                  <strong>Endereço:</strong> {studio.address}, {studio.number}, {studio.complement}, {studio.neighbourhood}, {studio.zip_code}
+                  <strong>Endereço:</strong> {studio.address}, {studio.number},{" "}
+                  {studio.complement}, {studio.neighbourhood}, {studio.zip_code}
                 </p>
+                <Link to={`/detalhes-estudio/${studio.id}`}>Ver detalhes</Link>
               </div>
             </div>
           </div>
         ))}
       </div>
     </div>
+  </div>
   );
 }

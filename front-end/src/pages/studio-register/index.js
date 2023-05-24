@@ -30,7 +30,7 @@ export function Studio_Register() {
       }
     }).then((res) => {
         setSuccessMsg('Estudio cadastrado com sucesso');
-        navigate('/');
+        navigate('/cadastrar-instrumentos/${res.data.id}');
       }).catch(error => {
         console.error(error);
         setErrorMsg(error.response?.data);
@@ -126,7 +126,7 @@ export function Studio_Register() {
                       <button type='submit'
                         className="btn btn-lg btn-primary w-100 fs-6"
                         style={{ background: '#546CCF' }} >
-                        Cadastrar estudio
+                        Adicionar Instrumentos
                       </button>
                     </div>
                   </div>
