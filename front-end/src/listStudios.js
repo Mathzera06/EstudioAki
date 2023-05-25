@@ -36,7 +36,7 @@ export function StudioList() {
   };
 
   return (
-    <div style={{ background: "#ee0979", minHeight: "100vh", display: "flex", alignItems: "center" }}>
+    <div style={{ background: "#0E243B", minHeight: "100vh", display: "flex", alignItems: "center" }}>
     <div className="container">
       <Navigation />
       <h1 className="text-center mt-8 text-white">Lista de Estúdios</h1>

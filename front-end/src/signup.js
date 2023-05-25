@@ -53,12 +53,12 @@ export function Signup() {
         <>
             <Navigation />
             <form onSubmit={onSubmitFunction}  >
-                <div style={{ background: "#ee0979" }}>
+                <div style={{ background: "#0E243B" }}>
                     <div className="container d-flex justify-content-center align-items-center min-vh-100">
                         <div className="row border rounded-5 p-3 bg-white shadow box-area">
                             <div
                                 className="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box"
-                                style={{ background: "#ee0979" }}
+                                style={{ background: "#0E243B" }}
                             >
                                 <div className="featured-image mb-3">
                                     {/* <img src={stereo} className="img-fluid" style={{ width: "150px" }} alt="featured" /> */}
@@ -128,7 +128,7 @@ export function Signup() {
 
 
                                     <div className="input-group mb-3 mt-4">
-                                        <button type='submit' className="btn btn-lg btn-primary w-100 fs-6" style={{ background: '#ee0979' }} >Criar</button>
+                                        <button type='submit' className="btn btn-lg btn-primary w-100 fs-6" style={{ background: "#0E243B" }} >Criar</button>
                                     </div>
                                     <div className="input-group mb-2">
                                         <Link to={'/login'} className='btn btn-lg btn-light w-100 fs-6'>

@@ -1,8 +1,9 @@
 // InstrumentRegister.js
 
 import { useState } from 'react';
-import { Form, Button, Alert } from 'react-bootstrap';
 import axios from 'axios';
+import { Col, Button, Row, Container, Card, Form, Alert } from 'react-bootstrap';
+import Navigation from '../../components/Navigation';
 
 const Instrument_Register = ({ studioId }) => {
   const [instrumentName, setInstrumentName] = useState('');
@@ -10,19 +11,19 @@ const Instrument_Register = ({ studioId }) => {
   const [errorMsg, setErrorMsg] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
 
-  const handleSubmit = (e) => {
+  const onSubmitFunction = (e) => {
     e.preventDefault();
 
     axios
       .post(`http://localhost:5000/studios/${studioId}/instruments`, {
         name: instrumentName,
         description: instrumentDescription,
-      },{
+      }, {
         headers: {
-            'Content-Type': 'application/json',
-            'authorization': `Bearer ${localStorage.getItem('token')}`,
-            'Accept': 'application/json',
-          }
+          'Content-Type': 'application/json',
+          'authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Accept': 'application/json',
+        }
       })
       .then((res) => {
         setSuccessMsg('Instrumento cadastrado com sucesso');
@@ -35,32 +36,47 @@ const Instrument_Register = ({ studioId }) => {
   };
 
   return (
-    <div>
-      <h2>Cadastrar Instrumento</h2>
-      <form onSubmit={handleSubmit}>
-        <Form.Group>
-          <Form.Label>Nome do Instrumento</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Digite o nome do instrumento"
-            value={instrumentName}
-            onChange={(e) => setInstrumentName(e.target.value)}
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Descrição do Instrumento</Form.Label>
-          <Form.Control
-            as="textarea"
-            rows={3}
-            placeholder="Digite a descrição do instrumento"
-            value={instrumentDescription}
-            onChange={(e) => setInstrumentDescription(e.target.value)}
-          />
-        </Form.Group>
-        {errorMsg && <Alert variant="danger">{errorMsg}</Alert>}
-        {successMsg && <Alert variant="success">{successMsg}</Alert>}
-        <Button type="submit">Cadastrar</Button>
-      </form>
+    <div style={{ background: "#0E243B" }}>
+      <Container>
+        <Navigation />
+        <Row className=" vh-100 d-flex justify-content-center align-items-center">
+          <Col md={8} lg={6} xs={12}>
+            <Card className="px-4 mt-5">
+              <Card.Body>
+              <div className="mb-3 mt-md-4">
+                    <h2 className="fw-bold mb-2 text-center text-uppercase ">
+                      Cadastre seu Equipamento
+                    </h2>
+                <form onSubmit={onSubmitFunction}>
+                  <Form.Group>
+                    <Form.Label>Nome do Instrumento</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="Digite o nome do instrumento"
+                      value={instrumentName}
+                      onChange={(e) => setInstrumentName(e.target.value)}
+                    />
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label>Descrição do Instrumento</Form.Label>
+                    <Form.Control
+                      as="textarea"
+                      rows={3}
+                      placeholder="Digite a descrição do instrumento"
+                      value={instrumentDescription}
+                      onChange={(e) => setInstrumentDescription(e.target.value)}
+                    />
+                  </Form.Group>
+                  {errorMsg && <Alert variant="danger">{errorMsg}</Alert>}
+                  {successMsg && <Alert variant="success">{successMsg}</Alert>}
+                  <Button type="submit">Cadastrar</Button>
+                </form>
+             </div>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+      </Container>
     </div>
   );
 };

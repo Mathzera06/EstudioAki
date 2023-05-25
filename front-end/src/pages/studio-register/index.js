@@ -4,6 +4,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { Alert } from 'react-bootstrap';
+import Navigation from '../../components/Navigation';
 
 export function Studio_Register() {
 
@@ -45,11 +46,13 @@ export function Studio_Register() {
   const [description, setDescription] = useState('');
   return (
 
+    <> 
     <div style={{ background: "#0E243B" }}>
       <Container>
+        <Navigation />
         <Row className=" vh-100 d-flex justify-content-center align-items-center">
           <Col md={8} lg={6} xs={12}>
-            <Card className="px-4">
+            <Card className="px-4 mt-5">
               <Card.Body>
                 <form onSubmit={onSubmitFunction}>
                   <div className="mb-3 mt-md-4">
@@ -120,7 +123,7 @@ export function Studio_Register() {
                       ></textarea>
                       {errorMsg ? (
                         <Alert variant='danger' className='mx-2'>
-                          {errorMsg}
+                          {errorMsg.errors}
                         </Alert>
                       ) : null}
                       <button type='submit'
@@ -137,6 +140,7 @@ export function Studio_Register() {
         </Row>
       </Container>
     </div>
+  </> 
   )
 }
 

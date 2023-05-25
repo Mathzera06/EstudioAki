@@ -11,7 +11,7 @@ const Gallery = () => {
 
     return (
         <div className='mt-5 bg-primary' style={divStyle}>
-            teste
+            Teste
         </div>
     )
 }
