@@ -1,9 +1,9 @@
 import { Route, Routes } from "react-router-dom";
-import { Login } from './login'
-import { Signup } from "./signup";
+import { Login } from './pages/signin/index'
+import { Signup } from "./pages/signup/index";
 import { Home } from './home'
 import { Studio_Register } from './pages/studio-register/index'
-import { StudioList } from './listStudios'
+import { StudioList } from "./pages/studio-listing/index.js";
 import { StudioDetails } from "./pages/studio-view";
 import Instrument_Register from "./pages/instruments-register";
 import PrivateRoute from "./helpers/PrivateRoute";
