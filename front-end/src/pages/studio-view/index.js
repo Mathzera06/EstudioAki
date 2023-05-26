@@ -20,6 +20,7 @@ export function StudioDetails({ match }) {
           },
         }
       );
+      console.log(response.data)
       setStudio(response.data);
     } catch (error) {
       console.error(error);
