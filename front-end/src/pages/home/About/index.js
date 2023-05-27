@@ -25,9 +25,9 @@ const About = () => {
         <section id="scroll">
             <div class="container py-5">
                 <h2 className='mb-5 text-center text-primary'>Aqui você encontra o estúdio ideal</h2>
-                <div className='d-flex justify-content-around'>
+                <div className='d-flex justify-content-around flex-wrap'>
                     {cards.map(card => (
-                        <div class="card" style={{ width: '18rem' }}>
+                        <div className="card m-2" style={{ width: '18rem' }}>
                             <div className="card-header bg-primary">
                                 <div className='text-center'>
                                     {card.icon}
