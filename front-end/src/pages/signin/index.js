@@ -31,6 +31,7 @@ export function Login() {
       }
     }).then(response => {
       localStorage.setItem('token', response.data.accessToken);
+      localStorage.setItem('userData', JSON.stringify(response.data.user));
       navigate('/');
     }).catch(error => {
       console.error(error);

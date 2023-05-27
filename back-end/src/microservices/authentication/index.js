@@ -65,7 +65,7 @@ app.post('/login', async (req, res) => {
 
         const accessToken = generateAccessToken(user);
 
-        return res.json({ accessToken });
+        return res.json({ accessToken, user });
     }
 
     return res.send('Usuário não encontrado', 400);
