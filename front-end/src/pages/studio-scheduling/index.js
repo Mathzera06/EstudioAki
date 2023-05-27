@@ -1,11 +1,30 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Col, Button, Row, Container, Card, Form } from 'react-bootstrap';
-import React, { useState, useEffect } from 'react';
+import { Col, Row, Container, Card } from 'react-bootstrap';
+import React from 'react';
 import Navigation from '../../components/Navigation';
-import { Calendar } from 'primereact/calendar';
+import { capitalizeFirstLetter } from '../../helpers/general'
 
 export function StudioSchedule() {
-  const [date, setDate] = useState('');
+
+  const getMonthOptions = () => {
+    const months = [
+      "janeiro",
+      "fevereiro",
+      "março",
+      "abril",
+      "maio",
+      "junho",
+      "julho",
+      "agosto",
+      "setembro",
+      "outubro",
+      "novembro",
+      "dezembro"
+    ];
+    return months.map((month, index) => (
+      <option value={index}>{capitalizeFirstLetter(month)}</option>
+    ))
+  }
 
   return (
     <>
@@ -18,81 +37,30 @@ export function StudioSchedule() {
                 <Card.Body>
                   <form >
                     <div className="mb-3 mt-md-4">
-                      <div className="h3 fw-bold mb-2 text-center text-uppercase ">
+                      <div className="h3 fw-bold mb-4 text-center text-uppercase ">
                         Adicionar nova agenda de disponibilidade
                       </div>
-                      <div className="mb-3">
-                        <Form>
-                          <Form.Label className="mb-3 text-center">
-                            Horario de funcionamento em dias uteis:
-                          </Form.Label>
-                          <div className="d-flex justify-content-between">
-                            <Form.Control
-                              className="mb-3"
-                              type="text"
-                              placeholder="Abre as:"
-                            />
-                            <Form.Control
-                              className="mb-3"
-                              type="text"
-                              placeholder="Fecha as:"
-                            />
-                          </div>
-                          <Form.Label className="mb-3 text-center">
-                            Horario de funcionamento em Sabados,Domingos e feriados:
-                          </Form.Label>
-                          <div className="d-flex justify-content-between">
-                            <Form.Control
-                              className="mb-3"
-                              type="text"
-                              placeholder="Abre as:"
-                            />
-                            <Form.Control
-                              className="mb-3"
-                              type="text"
-                              placeholder="Fecha as:"
-                            />
-                          </div>
-                        </Form>
-                        <Form.Label className="mb-3 text-center">
-                          Selecione uma data
-                        </Form.Label>
-                        <Calendar value={date} onChange={(e) => setDate(e.value)} showIcon
-                          inputClassName='form-control form-control-lg bg-light fs-6 w-100 '
-                          className='w-100 mb-3' />
-                        <Form.Label className="mb-3 text-center">
-                          Horario ja marcado:
-                        </Form.Label>
-                        <div className="d-flex justify-content-between">
-                          <Form.Control
-                            className="mb-3"
-                            type="text"
-                            placeholder="Das:"
-                          />
-                          <Form.Control
-                            className="mb-3"
-                            type="text"
-                            placeholder="Ate as:"
-                          />
+                      <div class="row">
+                        <div class="col">
+                          <input type="text" class="form-control" placeholder="First name" aria-label="First name" />
                         </div>
-
-                        <div className="d-flex justify-content-between">
-                          <button
-                            type='submit'
-                            className="btn btn-lg btn-primary fs-6"
-                            style={{ background: '#546CCF' }}
-                          >
-                            Salvar Alterações
-                          </button>
-                          <button
-                            type='submit'
-                            className="btn btn-lg btn-primary fs-6"
-                            style={{ background: '#546CCF' }}
-                          >
-                            Alterar Senha
-                          </button>
+                        <div class="col">
+                          <input type="text" class="form-control" placeholder="Last name" aria-label="Last name" />
                         </div>
                       </div>
+                      {/* <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                      </div> */}
+                      {/* <div class="row mb-3">
+                        <label htmlFor="inputEmail3" class="col-sm-4 col-lg-3 col-form-label">Selecionar mês</label>
+                        <div class="col-sm-8 col-lg-3">
+                          <select class="form-select" id='month' aria-label="Select month">
+                            {getMonthOptions()}
+                          </select>
+                        </div>
+                      </div> */}
                     </div>
                   </form>
                 </Card.Body>

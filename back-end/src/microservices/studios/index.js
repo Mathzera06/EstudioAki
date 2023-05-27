@@ -29,7 +29,7 @@ app.post('/studios', jwtAuthentication, async (req, res) => {
         zip_code,
     } = req.body;
 
-    // Simple Validation
+    // Blank fields validation
     const requiredFields = { name, address, neighbourhood, zip_code};
     const blankFields = Object.keys(requiredFields).filter(key => !requiredFields[key]);
     if (blankFields.length) {
