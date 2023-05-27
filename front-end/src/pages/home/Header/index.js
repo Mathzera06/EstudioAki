@@ -1,6 +1,6 @@
 import React from 'react'
-import './style.css'
 import { ArrowRight } from 'react-feather'
+import './style.css'
 
 const Header = () => {
 
