@@ -22,7 +22,6 @@ export function Studio_Register() {
         number: number,
         neighbourhood: neighborhood,
         description: description,
-        user_id: 1
       }, {
       headers: {
         'Content-Type': 'application/json',
@@ -30,8 +29,9 @@ export function Studio_Register() {
         'Accept': 'application/json',
       }
     }).then((res) => {
+        console.log(res.data);
         setSuccessMsg('Estudio cadastrado com sucesso');
-        navigate('/cadastrar-instrumentos/${res.data.id}');
+        navigate(`/estudios/:${res.data.id}/cadastrar-instrumentos`);
       }).catch(error => {
         console.error(error);
         setErrorMsg(error.response?.data);

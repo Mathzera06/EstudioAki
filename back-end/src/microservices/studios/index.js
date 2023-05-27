@@ -27,11 +27,10 @@ app.post('/studios', jwtAuthentication, async (req, res) => {
         neighbourhood,
         number,
         zip_code,
-        user_id
     } = req.body;
 
     // Simple Validation
-    const requiredFields = { name, address, neighbourhood, zip_code, user_id };
+    const requiredFields = { name, address, neighbourhood, zip_code};
     const blankFields = Object.keys(requiredFields).filter(key => !requiredFields[key]);
     if (blankFields.length) {
         return res.json({
@@ -39,21 +38,21 @@ app.post('/studios', jwtAuthentication, async (req, res) => {
         }, 400);
     }
 
-    const user = await User.findByPk(user_id);
+    const user = await User.findByPk(req.user.id);
     if (!user) return res.send('Usuário não encontrado', 400);
 
     const studio = await Studio.findOne({
         where: { 
             name,
-            user_id
+            user_id: req.user.id
         }
     });
     if (studio) return res.json('Não é permitido o cadastro de estúdios com o mesmo nome', 400);
 
-    const studioData = { ...requiredFields, complement, number };
-    await Studio.create(studioData).then(() => {
+    const studioData = { ...requiredFields, complement, number, user_id:req.user.id };
+    await Studio.create(studioData).then((estudio) => {
         //axios.post('http://localhost:7000/event')
-        return res.json('Estudio adicionado com sucesso', 201);
+        return res.json(estudio.dataValues, 201);
     }).catch(error => {
         console.log(error);
         return res.json('Não foi possível adicionar o estúdio', 400);

@@ -4,8 +4,12 @@ import { useState } from 'react';
 import axios from 'axios';
 import { Col, Button, Row, Container, Card, Form, Alert } from 'react-bootstrap';
 import Navigation from '../../components/Navigation';
+import { useParams } from 'react-router-dom';
 
-const Instrument_Register = ({ studioId }) => {
+const Instrument_Register = () => {
+
+  const {estudio_id} = useParams();
+  const  estudioId = estudio_id.replace(':', '')
   const [instrumentName, setInstrumentName] = useState('');
   const [instrumentDescription, setInstrumentDescription] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
@@ -15,7 +19,7 @@ const Instrument_Register = ({ studioId }) => {
     e.preventDefault();
 
     axios
-      .post(`http://localhost:5000/studios/${studioId}/instruments`, {
+      .post(`http://localhost:5000/studios/${estudioId}/instruments`, {
         name: instrumentName,
         description: instrumentDescription,
       }, {

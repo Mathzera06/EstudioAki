@@ -17,7 +17,7 @@ function App() {
       <Route path="/cadastrar" element={<Signup />} />
       <Route path="/criar-estudio" element={<Studio_Register />} />
       <Route path="/detalhes-estudio/:id" element={<StudioDetails />} />
-      <Route path="/cadastrar-instrumentos/:id" element={<Instrument_Register />} />
+      <Route path="/estudios/:estudio_id/cadastrar-instrumentos" element={<Instrument_Register />} />
       <Route path="/listar-estudios" element={
         <PrivateRoute>
           <StudioList />
