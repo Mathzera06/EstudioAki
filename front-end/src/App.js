@@ -9,6 +9,7 @@ import Instrument_Register from "./pages/instruments-register";
 import { StudioSchedule } from "./pages/studio-scheduling";
 import { UserProfile } from "./pages/user-page";
 import PrivateRoute from "./helpers/PrivateRoute";
+import { UserStudios } from "./pages/user-studios";
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
       <Route path="/detalhes-estudio/:id" element={<StudioDetails />} />
       <Route path="/agenda-estudio" element={<StudioSchedule/>} />
       <Route path="/perfil" element={<UserProfile/>} />
+      <Route path="/meus-estudios" element={<UserStudios/>} />
       <Route path="/estudios/:estudio_id/cadastrar-instrumentos" element={<Instrument_Register />} />
       <Route path="/listar-estudios" element={
         <PrivateRoute>

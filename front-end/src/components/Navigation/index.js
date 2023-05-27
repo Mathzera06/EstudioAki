@@ -33,7 +33,7 @@ const Navigation = () => {
                                     </button>
                                     <ul class="dropdown-menu">
                                         <li>
-                                            <Link className='dropdown-item' to={'/#'}>
+                                            <Link className='dropdown-item' to={'/meus-estudios'}>
                                                 <Home size={20} className='me-2' />
                                                 Meus Estúdios
                                             </Link>
