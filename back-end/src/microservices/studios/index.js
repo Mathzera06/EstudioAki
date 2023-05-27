@@ -78,6 +78,7 @@ app.get('/studios', jwtAuthentication, async (req, res) => {
     return res.send(studios, 200);
 })
 
+
 app.post('/studios/:id/instruments', jwtAuthentication, async (req, res) => {
     const studio_id = req.params.id;
     const { name, description } = req.body;
