@@ -28,7 +28,7 @@ const Navigation = () => {
                                     </button>
                                     <ul class="dropdown-menu">
                                         <li>
-                                            <Link className='dropdown-item' to={'/#'}>
+                                            <Link className='dropdown-item' to={'/perfil'}>
                                                 <Settings size={20} className='me-2' />
                                                 Minha Conta
                                             </Link>
