@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Navigation from '../../components/Navigation';
+import { getUserData } from "../../helpers/auth";
 
 export function UserStudios() {
   const [studios, setStudios] = useState([]);
@@ -12,9 +13,10 @@ export function UserStudios() {
   }, []);
 
   const fetchStudios = async () => {
+    const {id} = getUserData();
     console.log(searchTerm)
     try {
-      const response = await axios.get('http://localhost:5000/studios', {
+      const response = await axios.get(`http://localhost:7000/users/${id}/studios`, {
         headers: {
           'Content-Type': 'application/json',
           'authorization': `Bearer ${localStorage.getItem('token')}`,

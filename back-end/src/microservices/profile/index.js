@@ -30,11 +30,11 @@ app.get('/users/:id', jwtAuthentication, async (req, res) => {
 });
 
 app.put('/users/:id', jwtAuthentication, async (req, res) => {
-  const userId = req.params.id;
-  const { name, email } = req.body;
+  const userId = parseInt(req.params.id);
+  const {last_name, first_name, email } = req.body;
 
   if (userId !== req.user.id) {
-    return res.status(403).json({ error: 'Acesso não autorizado' });
+    return res.status(403).json({ error: 'Acesso não autorizado', userId, reqUserId: req.params.id });
   }
 
   try {
@@ -44,7 +44,8 @@ app.put('/users/:id', jwtAuthentication, async (req, res) => {
     }
 
     // Atualiza os dados do usuário
-    user.name = name;
+    user.first_name = first_name;
+    user.last_name = last_name;
     user.email = email;
     await user.save();
 

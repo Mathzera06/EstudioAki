@@ -14,6 +14,7 @@ export function UserProfile() {
   }, []);
 
   const fetchUserData = async () => {
+    
     try {
       const response = await axios.get('http://localhost:7000/users/5', {
         headers: {
@@ -34,7 +35,7 @@ export function UserProfile() {
   const updateUserData = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put('http://localhost:7000/users/3', {
+      const response = await axios.put('http://localhost:7000/users/5', {
         first_name,
         last_name,
         email
