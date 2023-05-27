@@ -5,11 +5,11 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { Alert } from 'react-bootstrap';
 import Navigation from '../../components/Navigation';
-import { FaLock } from 'react-icons/fa';
+import { Lock } from 'react-feather';
 
 export function UserProfile() {
   return (
-    <> 
+    <>
       <div style={{ background: "#0E243B" }}>
         <Container>
           <Navigation />
@@ -41,7 +41,7 @@ export function UserProfile() {
                             placeholder="Coloque o nome"
                           />
                           <Form.Group className="mb-3" controlId="nomeDoStudio">
-                            
+
                           </Form.Group>
                         </Form>
                         <Form.Label className="mb-3 text-center">
@@ -65,7 +65,7 @@ export function UserProfile() {
                             className="btn btn-lg btn-primary fs-6"
                             style={{ background: '#546CCF' }}
                           >
-                            Alterar Senha <FaLock/>
+                            Alterar Senha <Lock />
                           </button>
                         </div>
                       </div>

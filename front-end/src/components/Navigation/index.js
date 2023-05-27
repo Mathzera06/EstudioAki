@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import logoImage from "../../assets/images/LogoTransparente.png"
 import { isLoggedIn, getUserData, logout } from '../../helpers/auth'
-import { LogOut, Search, Settings, User } from 'react-feather'
+import { Home, LogOut, Search, Settings, User } from 'react-feather'
 
 const Navigation = () => {
     return (
@@ -32,6 +32,12 @@ const Navigation = () => {
                                         {getUserData()?.first_name}
                                     </button>
                                     <ul class="dropdown-menu">
+                                        <li>
+                                            <Link className='dropdown-item' to={'/#'}>
+                                                <Home size={20} className='me-2' />
+                                                Meus Estúdios
+                                            </Link>
+                                        </li>
                                         <li>
                                             <Link className='dropdown-item' to={'/perfil'}>
                                                 <Settings size={20} className='me-2' />
