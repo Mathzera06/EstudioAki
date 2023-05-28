@@ -42,6 +42,7 @@ const Gallery = () => {
 
 
     return (
+        <div>
         <div className="container px-5" >
             <div className="row gx-5 align-items-center">
                 <div className="col-lg-6 order-lg-2">
@@ -138,6 +139,7 @@ const Gallery = () => {
 
                 {/* Adicione mais slides, se necessário */}
             </Carousel>
+        </div>
         </div>
     );
 };

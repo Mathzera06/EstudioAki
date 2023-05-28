@@ -4,14 +4,15 @@ import { Link, useParams } from "react-router-dom";
 import { Button, Card, Container } from 'react-bootstrap'
 import Navigation from "../../components/Navigation";
 import { ArrowLeft, ArrowRight, Calendar, PlusCircle } from "react-feather";
+import './style.css'
 
 export function StudioDetails({ match }) {
-
   const { id } = useParams();
   const estudioId = id.replace(':', '');
   const [studio, setStudio] = useState(null);
   const [schedules, setSchedules] = useState(null);
   const [instruments, setInstruments] = useState(null);
+  const [selectedSchedules, setSelectedSchedules] = useState([]);
 
   useEffect(() => {
     document.body.classList.add('body-primary');
@@ -32,7 +33,6 @@ export function StudioDetails({ match }) {
           },
         }
       );
-      console.log(response.data)
       setStudio(response.data);
     } catch (error) {
       console.error(error);
@@ -50,7 +50,6 @@ export function StudioDetails({ match }) {
           },
         }
       );
-      console.log(response.data)
       setInstruments(response.data);
     } catch (error) {
       console.error(error);
@@ -68,7 +67,6 @@ export function StudioDetails({ match }) {
           },
         }
       );
-      console.log(response.data)
       setSchedules(response.data);
     } catch (error) {
       console.error(error);
@@ -80,6 +78,28 @@ export function StudioDetails({ match }) {
     fetchStudioInstruments();
     fetchStudioSchedule();
   }, []);
+
+  const handleScheduleClick = (schedule) => {
+    const isSelected = isScheduleSelected(schedule);
+  
+    if (isSelected) {
+      const updatedSchedules = selectedSchedules.filter(
+        (selectedSchedule) => selectedSchedule.id !== schedule.id
+      );
+      setSelectedSchedules(updatedSchedules);
+    } else {
+      setSelectedSchedules([...selectedSchedules, schedule]);
+    }
+  };
+
+  const isScheduleSelected = (schedule) => {
+    return selectedSchedules.some((selectedSchedule) => selectedSchedule.id === schedule.id);
+  };
+
+  const handleReserveClick = () => {
+    // Aqui você pode implementar a lógica para solicitar a reserva dos horários selecionados
+    console.log("Horários selecionados:", selectedSchedules);
+  }
 
   if (!studio || !schedules || !instruments) {
     return (
@@ -117,9 +137,9 @@ export function StudioDetails({ match }) {
             {instruments.length ? (
               <ul className="list-group">
                 {instruments.map((instrument, key) => (
-                  <li key={key} class="list-group-item d-flex justify-content-between align-items-start">
-                    <div class="ms-2 me-auto">
-                      <div class="fw-bold">{instrument.name}</div>
+                  <li key={key} className="list-group-item d-flex justify-content-between align-items-start">
+                    <div className="ms-2 me-auto">
+                      <div className="fw-bold">{instrument.name}</div>
                       {instrument.description}
                     </div>
                   </li>
@@ -140,7 +160,14 @@ export function StudioDetails({ match }) {
             {schedules.length ? (
               <div className="d-flex flex-wrap">
                 {schedules.map((schedule, index) => (
-                  <Button size="sm" key={index} className="m-2 d-flex align-items-center">
+                  <Button
+                    key={index}
+                    size="sm"
+                    className={`m-2 d-flex align-items-center ${
+                      isScheduleSelected(schedule) ? 'btn-schedule-selected' : ''
+                    }`}
+                    onClick={() => handleScheduleClick(schedule)}
+                  >
                     <Calendar size={19} className="me-2" />
                     {(new Date(schedule.date)).toLocaleDateString('pt-BR', { year: '2-digit', day: '2-digit', month: '2-digit' })}
                     <span className="ms-1">{schedule.hour_from}h às {schedule.hour_to}h</span>
@@ -155,7 +182,10 @@ export function StudioDetails({ match }) {
             </p>
             <div className="row">
               <div className="col text-right">
-                <Button disabled>
+                <Button
+                  disabled={selectedSchedules.length === 0}
+                  onClick={handleReserveClick}
+                >
                   Solicitar Reserva <ArrowRight size={18} />
                 </Button>
               </div>
