@@ -15,6 +15,36 @@ app.use(cors());
 // Models
 const Studio = require('../database/Studio');
 const StudioSchedule = require('../database/StudioSchedule');
+const Reservation = require('../database/Reservation');
+
+app.post('/studios/:studio_id/reservations', jwtAuthentication, async (req, res) => {
+    const studio_id = parseInt(req.params.studio_id);
+    const user_id = req.user.id;
+    const studio_schedule_id = parseInt(req.body.studio_schedule_id); // ID da reserva do estúdio
+  
+    // Verificar se o estúdio é válido
+    const studio = await Studio.findByPk(studio_id);
+    if (!studio) {
+      return res.status(400).json('Estúdio inválido');
+    }
+  
+    // Verificar se o usuário é o proprietário/locador do estúdio
+    if (studio.user_id === user_id) {
+      return res.status(400).json('O propetario não pode locar o propio estudio');
+    }
+  
+    // Criar a solicitação de reserva
+    try {
+      const reservation = await Reservation.create({
+        user_id,
+        studio_schedule_id,
+      });
+      return res.status(200).json('Solicitação de reserva criada com sucesso!');
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json('Erro ao criar a solicitação de reserva');
+    }
+  });
 
 app.post('/studios/:studio_id/schedules', jwtAuthentication, async (req, res) => {
     const studio_id = req.params.studio_id;
