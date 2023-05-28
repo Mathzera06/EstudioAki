@@ -1,6 +1,7 @@
 import React from 'react'
 import { ArrowRight } from 'react-feather'
 import './style.css'
+import { Link } from 'react-router-dom'
 
 const Header = () => {
 
@@ -12,9 +13,9 @@ const Header = () => {
                         Da inspiração à criação
                     </h1>
                     <h2 class="masthead-subheading mt-2 mb-0">alugue o estúdio perfeito agora mesmo</h2>
-                    <a class="btn btn-primary btn-xl rounded-pill mt-5 btn-find-studio" href="#scroll">
+                    <Link class="btn btn-primary btn-xl rounded-pill mt-5 btn-find-studio" to={'/listar-estudios'}>
                         Encontrar Estúdios <ArrowRight size={30}/>
-                    </a>
+                    </Link>
                 </div>
             </div>
             <div class="bg-circle-1 bg-circle"></div>

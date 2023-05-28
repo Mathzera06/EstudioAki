@@ -19,10 +19,10 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/cadastrar" element={<Signup />} />
       <Route path="/criar-estudio" element={<Studio_Register />} />
-      <Route path="/detalhes-estudio/:id" element={<StudioDetails />} />
-      <Route path="/agenda-estudio" element={<StudioSchedule/>} />
       <Route path="/perfil" element={<UserProfile/>} />
       <Route path="/meus-estudios" element={<UserStudios/>} />
+      <Route path="/detalhes-estudio/:id" element={<StudioDetails />} />
+      <Route path="/estudios/:estudio_id/cadastrar-agenda" element={<StudioSchedule/>} />
       <Route path="/estudios/:estudio_id/cadastrar-instrumentos" element={<Instrument_Register />} />
       <Route path="/listar-estudios" element={
         <PrivateRoute>

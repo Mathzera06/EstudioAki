@@ -4,9 +4,13 @@ app.use(express.json());
 
 // Models
 const User = require('../database/User');
+const Studio = require('../database/Studio');
+const { Op } = require('sequelize');
+
+// JWT
 const { jwtAuthentication } = require('../authentication/middleware');
 
-var cors = require('cors')
+var cors = require('cors');
 app.use(cors());
 
 app.get('/users/:id', jwtAuthentication, async (req, res) => {
@@ -56,6 +60,19 @@ app.put('/users/:id', jwtAuthentication, async (req, res) => {
   }
 });
 
-app.listen(7000, () => {
-  console.log('Servidor rodando na porta 7000');
+app.get('/users/:id/studios', jwtAuthentication, async (req, res) => {
+  const { q } = req.query; // Access the 'q' query parameter
+  const studios = await Studio.findAll({
+      where: {
+          name: {
+              [Op.like]: q ? `%${q}%` : '%%'
+          },
+          user_id: req.user.id
+      }
+  });
+  return res.send(studios, 200);
+})
+
+app.listen(9000, () => {
+  console.log('Servidor rodando na porta 9000');
 });

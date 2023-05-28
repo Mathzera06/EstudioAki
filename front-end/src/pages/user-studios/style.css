@@ -1,0 +1,8 @@
+.hoverable-card {
+    transition: 0.3s;
+}
+
+.hoverable-card:hover {
+    background-color: rgb(233, 233, 233);
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}

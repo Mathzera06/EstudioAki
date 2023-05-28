@@ -3,6 +3,8 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import Navigation from '../../components/Navigation';
 import { getUserData } from "../../helpers/auth";
+import { Book, Info } from "react-feather";
+import './style.css'
 
 export function UserStudios() {
   const [studios, setStudios] = useState([]);
@@ -13,10 +15,10 @@ export function UserStudios() {
   }, []);
 
   const fetchStudios = async () => {
-    const {id} = getUserData();
-    console.log(searchTerm)
+    const { id } = getUserData();
+
     try {
-      const response = await axios.get(`http://localhost:7000/users/${id}/studios`, {
+      const response = await axios.get(`http://localhost:9000/users/${id}/studios`, {
         headers: {
           'Content-Type': 'application/json',
           'authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -39,38 +41,43 @@ export function UserStudios() {
 
   return (
     <div style={{ background: "#0E243B", minHeight: "100vh", display: "flex", alignItems: "center" }}>
-    <div className="container">
-      <Navigation />
-      <h1 className="text-center mt-8 text-white">Meus Estúdios</h1>
-      <div className="row justify-content-center">
-        <div className="col-md-6 mb-4 d-flex justify-content-center">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Buscar estúdio"
-            value={searchTerm}
-            onChange={handleSearch}
-          />
-          <button className="btn btn-primary ml-2" onClick={fetchStudios}>Buscar</button>
+      <div className="container">
+        <Navigation />
+        <h1 className="text-center mt-8 text-white">Meus Estúdios</h1>
+        <div className="row justify-content-center">
+          <div className="col-md-6 mb-4 d-flex justify-content-center">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Buscar estúdio"
+              value={searchTerm}
+              onChange={handleSearch}
+            />
+            <button className="btn btn-primary ml-2" onClick={fetchStudios}>Buscar</button>
+          </div>
         </div>
-      </div>
-      <div className="row justify-content-center">
-        {studios.map((studio) => (
-          <div key={studio.id} className="col-md-4">
-            <div className="card mb-4">
-              <div className="card-body">
-                <h5 className="card-title">{studio.name}</h5>
-                <p className="card-text">
-                  <strong>Endereço:</strong> {studio.address}, {studio.number},{" "}
-                  {studio.complement}, {studio.neighbourhood}, {studio.zip_code}
-                </p>
-                <Link to={`/detalhes-estudio/${studio.id}`}>Ver detalhes</Link>
+        <div className="row justify-content-center">
+          {studios.map((studio) => (
+            <div key={studio.id} className="col-md-4">
+              <div className="card mb-4">
+                <div className="card-body">
+                  <h5 className="card-title">{studio.name}</h5>
+                  <p className="card-text">
+                    <strong>Endereço:</strong> {studio.address}, {studio.number},{" "}
+                    {studio.complement}, {studio.neighbourhood}, {studio.zip_code}
+                  </p>
+                  <Link to={`/detalhes-estudio/${studio.id}`} className="me-3">
+                    <Info size={14} className="me-1" />Ver detalhes
+                  </Link>
+                  <Link to={`/detalhes-estudio/${studio.id}`}>
+                    <Book size={14} className="me-1" /> Ver agenda
+                  </Link>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
-  </div>
   );
 }

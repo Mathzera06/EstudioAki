@@ -14,18 +14,28 @@ const StudioSchedule = db.define('studio_schedules', {
         allowNull: false
     },
     hour_from: {
-        type: Sequelize.TIME,
-        allowNull: false
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        validate: {
+            min: 0,
+            max: 23
+        }
     },
     hour_to: {
-        type: Sequelize.TIME,
-        allowNull: false
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        validate: {
+            min: 0,
+            max: 23
+        }
     },
 }, { underscored: true });
 
 StudioSchedule.belongsTo(Studio, {
     foreignKey: {
-        allowNull: false
+        name: 'studio_id',
+        allowNull: false,
+        underscored: true
     }
 });
 Studio.hasMany(StudioSchedule);
