@@ -1,10 +1,21 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Col, Row, Container, Card } from 'react-bootstrap';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Navigation from '../../components/Navigation';
 import { capitalizeFirstLetter } from '../../helpers/general'
+import { Calendar } from 'primereact/calendar';
+import './style.css'
 
 export function StudioSchedule() {
+  const [date, setDate] = useState('');
+
+  useEffect(() => {
+    document.body.classList.add('body-primary');
+
+    return () => {
+      document.body.classList.remove('body-primary');
+    }
+  }, [])
 
   const getMonthOptions = () => {
     const months = [
@@ -26,47 +37,74 @@ export function StudioSchedule() {
     ))
   }
 
+  const getRentalDurationOptions = () => {
+    let options = [];
+    for (let i = 1; i < 25; i++) {
+      options.push(<option value={i}>{i + (i > 1 ? ' horas' : ' hora')}</option>);
+    }
+    return options;
+  }
+
   return (
     <>
-      <div style={{ background: "#0E243B" }}>
+      <div>
         <Container>
           <Navigation />
-          <Row className="vh-100 d-flex justify-content-center align-items-center">
-            <Col md={8} lg={10} xs={12}>
-              <Card className="px-4 mt-5">
-                <Card.Body>
-                  <form >
-                    <div className="mb-3 mt-md-4">
-                      <div className="h3 fw-bold mb-4 text-center text-uppercase ">
-                        Adicionar nova agenda de disponibilidade
-                      </div>
-                      <div class="row">
-                        <div class="col">
-                          <input type="text" class="form-control" placeholder="First name" aria-label="First name" />
-                        </div>
-                        <div class="col">
-                          <input type="text" class="form-control" placeholder="Last name" aria-label="Last name" />
-                        </div>
-                      </div>
-                      {/* <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
-                        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-                      </div> */}
-                      {/* <div class="row mb-3">
-                        <label htmlFor="inputEmail3" class="col-sm-4 col-lg-3 col-form-label">Selecionar mês</label>
-                        <div class="col-sm-8 col-lg-3">
-                          <select class="form-select" id='month' aria-label="Select month">
-                            {getMonthOptions()}
-                          </select>
-                        </div>
-                      </div> */}
+          <Card className="px-4 mx-auto" style={{ maxWidth: '1100px', marginTop: '100px' }}>
+            <Card.Body>
+              <form className="my-3 mx-auto" style={{ maxWidth: '700px' }}>
+                <div className="h3 fw-bold mb-4 text-center text-uppercase ">
+                  Nova agenda para o estúdio: <span className='text-primary'>NOME-Estudio</span>
+                </div>
+                <div class="row">
+                  <div class="col-12 col-sm-6">
+                    <label htmlFor="month" class="form-label">Selecionar Estúdio</label>
+                    <select class="form-select" id='month' aria-label="Select month">
+                      {getMonthOptions()}
+                    </select>
+                  </div>
+                  <div class="col-12 col-sm-6">
+                    <label htmlFor="month" class="form-label">Selecionar mês</label>
+                    <select class="form-select" id='month' aria-label="Select month">
+                      {getMonthOptions()}
+                    </select>
+                  </div>
+                </div>
+                <div className="row">
+                  <div class="col-12 col-sm-6">
+                    <label htmlFor="month" class="form-label">Tempo de alocação mínimo</label>
+                    <select class="form-select" id='month' aria-label="Select month">
+                      {getRentalDurationOptions()}
+                    </select>
+                  </div>
+                  <div class="col-12 col-sm-6">
+                    <label htmlFor="month" class="form-label">Horário disponível p/ alocação</label>
+                    <div class="input-group mb-3">
+                      <input type="text" class="form-control" placeholder="8:00" aria-label="Username" />
+                      <span class="input-group-text">às</span>
+                      <input type="text" class="form-control" placeholder="20:00" aria-label="Server" />
                     </div>
-                  </form>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-12 text-center">
+                    <Calendar
+                      value={date}
+                      onChange={(e) => setDate(e.value)}
+                      dateFormat={'dd/mm/yy'}
+                      inline
+                    />
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-12 text-end">
+                    <button className="btn btn-outline-primary me-2">Cancelar</button>
+                    <button className="btn btn-primary">Salvar</button>
+                  </div>
+                </div>
+              </form>
+            </Card.Body>
+          </Card>
         </Container>
       </div>
     </>
