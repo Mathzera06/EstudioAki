@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('../database/db');
-const StudioSchedule = require ('./StudioSchedule')
+const StudioSchedule = require('./StudioSchedule');
+const User = require('./User');
 
 const Reservation = db.define('reservation', {
   id: {
@@ -8,28 +9,28 @@ const Reservation = db.define('reservation', {
     primaryKey: true,
     autoIncrement: true,
   },
-  user_id: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-  },
-  studio_schedule_id: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-  },
   accepted: {
     type: Sequelize.BOOLEAN,
     defaultValue: false,
   },
-});
+}, { underscored: true });
 
 Reservation.belongsTo(StudioSchedule, {
-    foreingKey: {
-        name:'studio_schedule_id',
-        allowNull: false,
-        underscored: true
-    }
-})
+  foreignKey: {
+    name: 'studio_schedule_id',
+    allowNull: false,
+    underscored: true
+  }
+});
 
-Reservation.sync({alter: false})
+Reservation.belongsTo(User, {
+  foreignKey: {
+    name: 'user_id',
+    allowNull: false,
+    underscored: true
+  }
+});
+
+Reservation.sync({ alter: false })
 
 module.exports = Reservation;
