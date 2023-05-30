@@ -7,7 +7,7 @@ const About = () => {
         {
             icon: <Volume2 size={58} className='py-2' />,
             title: 'Variedade de Estúdios',
-            content: 'Mais de [X] estúdios cadastrados para escolher.'
+            content: 'Vários estúdios cadastrados para escolher.'
         },
         {
             icon: <MapPin size={58} className='py-2' />,

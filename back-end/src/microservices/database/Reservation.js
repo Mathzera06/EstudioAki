@@ -10,7 +10,7 @@ const Reservation = db.define('reservation', {
     autoIncrement: true,
   },
   accepted: {
-    type: Sequelize.BOOLEAN,
+    type: Sequelize.TINYINT,
     defaultValue: false,
   },
 }, { underscored: true });

@@ -20,6 +20,8 @@ const User = require('../database/User');
 
 app.get('/studios/:studio_id/reservations', jwtAuthentication, async (req, res) => {
     const studio_id = parseInt(req.params.studio_id);
+    const { all } = req.query;
+
     const user_id = req.user.id;
 
     // Verificar se o estúdio é válido
@@ -43,7 +45,7 @@ app.get('/studios/:studio_id/reservations', jwtAuthentication, async (req, res) 
                 },
                 {
                     model: User,
-                    required: true,
+                    required: !(all === 'true'),
                     where: {
                         id: user_id
                     }
@@ -54,6 +56,92 @@ app.get('/studios/:studio_id/reservations', jwtAuthentication, async (req, res) 
     } catch (error) {
         console.log(error);
         return res.status(500).json('Não foi possível consultar as reservas para este estúdio');
+    }
+});
+
+app.delete('/studios/:studio_id/reservations/:reservation_id', jwtAuthentication, async (req, res) => {
+    const studio_id = parseInt(req.params.studio_id);
+    const reservation_id = parseInt(req.params.reservation_id);
+    const user_id = req.user.id;
+
+    // Verificar se o estúdio é válido
+    const studio = await Studio.findByPk(studio_id);
+    if (!studio) return res.status(400).json('Estúdio inválido');
+
+    // Verificar se o a reserva eh válida
+    const reservation = await Reservation.findByPk(reservation_id);
+    if (!reservation) return res.status(400).json('Reserva inválida');
+    if (reservation.accepted !== 0) return res.status(400).json('Reserva inválida p/ exclusão');
+
+    if (reservation.user_id !== user_id) {
+        return res.status(400).json('Somente o solicitante pode excluir a reserva');
+    }
+    try {
+        reservation.destroy();
+        return res.status(200).json('Reserva #' + reservation.id + ' excluída!');
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json('Erro ao recusar a reserva');
+    }
+});
+
+app.put('/studios/:studio_id/reservations/:reservation_id/cancel', jwtAuthentication, async (req, res) => {
+    const studio_id = parseInt(req.params.studio_id);
+    const reservation_id = parseInt(req.params.reservation_id);
+    const user_id = req.user.id;
+
+    // Verificar se o estúdio é válido
+    const studio = await Studio.findByPk(studio_id);
+    if (!studio) return res.status(400).json('Estúdio inválido');
+
+    // Verificar se o a reserva eh válida
+    const reservation = await Reservation.findByPk(reservation_id);
+    if (!reservation) return res.status(400).json('Reserva inválida');
+    if (reservation.accepted !== 0) return res.status(400).json('Reserva já tratada');
+
+    // Verificar se o usuário é o proprietário/locador do estúdio
+    if (studio.user_id !== user_id) {
+        return res.status(400).json('Somente o locador pode recusar a reserva');
+    }
+
+    // Criar a solicitação de reserva
+    try {
+        reservation.accepted = -1;
+        reservation.save();
+        return res.status(200).json('Reserva #' + reservation.id + ' recusada!');
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json('Erro ao recusar a reserva');
+    }
+});
+
+app.put('/studios/:studio_id/reservations/:reservation_id/accept', jwtAuthentication, async (req, res) => {
+    const studio_id = parseInt(req.params.studio_id);
+    const reservation_id = parseInt(req.params.reservation_id);
+    const user_id = req.user.id;
+
+    // Verificar se o estúdio é válido
+    const studio = await Studio.findByPk(studio_id);
+    if (!studio) return res.status(400).json('Estúdio inválido');
+
+    // Verificar se o a reserva eh válida
+    const reservation = await Reservation.findByPk(reservation_id);
+    if (!reservation) return res.status(400).json('Reserva inválida');
+    if (reservation.accepted !== 0) return res.status(400).json('Reserva já tratada');
+
+    // Verificar se o usuário é o proprietário/locador do estúdio
+    if (studio.user_id !== user_id) {
+        return res.status(400).json('Somente o locador pode aceitar a reserva');
+    }
+
+    // Criar a solicitação de reserva
+    try {
+        reservation.accepted = 1;
+        reservation.save();
+        return res.status(200).json('Reserva #' + reservation.id + ' aceita!');
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json('Erro ao recusar a reserva');
     }
 });
 

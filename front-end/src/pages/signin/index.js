@@ -86,19 +86,7 @@ export function Login() {
                     <Password type='password' value={password} id='password' autoComplete='off' required
                       onChange={(e) => setPassword(e.target.value)} feedback={false} placeholder="Senha" toggleMask inputClassName='form-control form-control-lg bg-light fs-6 w-100 ' className='w-100' />
                   </div>
-                  <div className="input-group mb-5 d-flex justify-content-between">
-                    <div className="form-check">
-                      <input type="checkbox" className="form-check-input" id="formCheck" />
-                      <label htmlFor="formCheck" className="form-check-label text-secondary">
-                        <small>Lembreçe de mim</small>
-                      </label>
-                    </div>
-                    <div className="forgot">
-                      <small>
-                        <a href="#">Esqueceu a senha?</a>
-                      </small>
-                    </div>
-                  </div>
+                  <div className="input-group mb-5 d-flex justify-content-between"></div>
                   <div className="input-group mb-3">
                     <button className="btn btn-lg btn-primary w-100 fs-6" style={{ background: "#0E243B" }}>Entrar</button>
                   </div>

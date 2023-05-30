@@ -3,8 +3,11 @@ import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import { Button, Card, Container } from 'react-bootstrap'
 import Navigation from "../../components/Navigation";
-import { ArrowLeft, ArrowRight, Calendar, PlusCircle } from "react-feather";
+import { ArrowDown, ArrowLeft, ArrowRight, Calendar, ChevronDown, PlusCircle } from "react-feather";
 import './style.css'
+import { getUserAccessToken, getUserData } from "../../helpers/auth";
+import Reservations from "./reservations";
+import { toast } from "react-toastify";
 
 export function StudioDetails({ match }) {
   const { id } = useParams();
@@ -12,7 +15,9 @@ export function StudioDetails({ match }) {
   const [studio, setStudio] = useState(null);
   const [schedules, setSchedules] = useState(null);
   const [instruments, setInstruments] = useState(null);
+  const [reservations, setReservations] = useState(null);
   const [selectedSchedules, setSelectedSchedules] = useState([]);
+  const user = getUserData();
 
   useEffect(() => {
     document.body.classList.add('body-primary');
@@ -34,6 +39,24 @@ export function StudioDetails({ match }) {
         }
       );
       setStudio(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  const fetchReservations = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8000/studios/${estudioId}/reservations?all=${getUserData()?.id === studio.user_id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${getUserAccessToken()}`
+          },
+        }
+      );
+      setReservations(response.data);
     } catch (error) {
       console.error(error);
     }
@@ -74,6 +97,12 @@ export function StudioDetails({ match }) {
   }
 
   useEffect(() => {
+    if (studio) {
+      fetchReservations();
+    }
+  }, [studio])
+
+  useEffect(() => {
     fetchStudioDetails();
     fetchStudioInstruments();
     fetchStudioSchedule();
@@ -81,7 +110,7 @@ export function StudioDetails({ match }) {
 
   const handleScheduleClick = (schedule) => {
     const isSelected = isScheduleSelected(schedule);
-  
+
     if (isSelected) {
       const updatedSchedules = selectedSchedules.filter(
         (selectedSchedule) => selectedSchedule.id !== schedule.id
@@ -96,9 +125,26 @@ export function StudioDetails({ match }) {
     return selectedSchedules.some((selectedSchedule) => selectedSchedule.id === schedule.id);
   };
 
-  const handleReserveClick = () => {
-    // Aqui você pode implementar a lógica para solicitar a reserva dos horários selecionados
-    console.log("Horários selecionados:", selectedSchedules);
+  const handleReserveClick = async () => {
+    try {
+      const response = await axios.post(
+        `http://localhost:8000/studios/${estudioId}/reservations`,
+        {
+          studio_schedule_id: schedules[0]?.id
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${getUserAccessToken()}`
+          },
+        }
+      );
+      toast.success('Reserva solicitada com sucesso!');
+      fetchReservations();
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   if (!studio || !schedules || !instruments) {
@@ -163,9 +209,7 @@ export function StudioDetails({ match }) {
                   <Button
                     key={index}
                     size="sm"
-                    className={`m-2 d-flex align-items-center ${
-                      isScheduleSelected(schedule) ? 'btn-schedule-selected' : ''
-                    }`}
+                    className={`m-2 d-flex align-items-center ${isScheduleSelected(schedule) ? 'btn-schedule-selected' : ''}`}
                     onClick={() => handleScheduleClick(schedule)}
                   >
                     <Calendar size={19} className="me-2" />
@@ -177,19 +221,30 @@ export function StudioDetails({ match }) {
             ) : (
               <div className="h6 fw-normal">Estúdio não possui horários disponíveis</div>
             )}
-            <p className="text-dark mt-2">
-              Para solicitar a reserva de um horário, selecione os que desejar e clique em prosseguir
-            </p>
-            <div className="row">
-              <div className="col text-right">
-                <Button
-                  disabled={selectedSchedules.length === 0}
-                  onClick={handleReserveClick}
-                >
-                  Solicitar Reserva <ArrowRight size={18} />
-                </Button>
-              </div>
-            </div>
+            {studio?.user_id !== user.id ? (
+              <>
+                <p className="text-dark mt-2">
+                  Para solicitar a reserva de um horário, selecione os que desejar e clique em prosseguir
+                </p>
+                <div className="row">
+                  <div className="col text-right">
+                    <Button
+                      disabled={selectedSchedules.length === 0}
+                      onClick={handleReserveClick}
+                    >
+                      Solicitar Reserva <ArrowRight size={18} />
+                    </Button>
+                  </div>
+                </div>
+              </>
+            ) : null}
+            {reservations?.length ? (
+              <Reservations
+                reservations={reservations}
+                studio={studio}
+                fetchReservations={fetchReservations}
+              />
+            ) : null}
           </Card.Body>
         </Card>
       </Container>

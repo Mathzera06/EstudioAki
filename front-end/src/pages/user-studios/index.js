@@ -44,7 +44,7 @@ export function UserStudios() {
       <div className="container">
         <Navigation />
         <h1 className="text-center mt-8 text-white">Meus Estúdios</h1>
-        <div className="row justify-content-center">
+        <div className="row justify-content-center mb-3">
           <div className="col-md-6 mb-4 d-flex justify-content-center">
             <input
               type="text"
@@ -60,8 +60,10 @@ export function UserStudios() {
           {studios.map((studio) => (
             <div key={studio.id} className="col-md-4">
               <div className="card mb-4">
+                <div className="card-header bg-primary">
+                  <h5 className="card-title m-0">{studio.name}</h5>
+                </div>
                 <div className="card-body">
-                  <h5 className="card-title">{studio.name}</h5>
                   <p className="card-text">
                     <strong>Endereço:</strong> {studio.address}, {studio.number},{" "}
                     {studio.complement}, {studio.neighbourhood}, {studio.zip_code}
