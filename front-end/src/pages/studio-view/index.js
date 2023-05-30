@@ -175,10 +175,12 @@ export function StudioDetails({ match }) {
             </p>
             <div className="h4 d-flex justify-content-between">
               Instrumentos:
-              <Button size="sm" variant="success" className="text-white">
-                <PlusCircle className="me-1" size={17} />
-                Adicionar Instrumento
-              </Button>
+              {studio?.user_id === user.id ? (
+                <Button size="sm" variant="success" className="text-white">
+                  <PlusCircle className="me-1" size={17} />
+                  Adicionar Instrumento
+                </Button>
+              ) : null}
             </div>
             {instruments.length ? (
               <ul className="list-group">
@@ -196,12 +198,14 @@ export function StudioDetails({ match }) {
             )}
             <div className="h4 mt-3 d-flex justify-content-between mb-4">
               Horários disponíveis:
-              <Link to={`/estudios/${estudioId}/cadastrar-agenda`}>
-                <Button size="sm" variant='success' className="text-white">
-                  <PlusCircle className="me-1" size={17} />
-                  Adicionar novo horário
-                </Button>
-              </Link>
+              {studio?.user_id === user.id ?
+                <Link to={`/estudios/${estudioId}/cadastrar-agenda`}>
+                  <Button size="sm" variant='success' className="text-white">
+                    <PlusCircle className="me-1" size={17} />
+                    Adicionar novo horário
+                  </Button>
+                </Link>
+                : null}
             </div>
             {schedules.length ? (
               <div className="d-flex flex-wrap">
