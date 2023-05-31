@@ -159,11 +159,9 @@ export function StudioDetails({ match }) {
       <Container>
         <Card className="p-4 mx-auto" style={{ maxWidth: '1100px', marginTop: '100px' }}>
           <Card.Title>
-            <Link to={'/meus-estudios'}>
-              <Button size='sm'>
+              <Button size='sm' onClick={() => window.history.back()} >
                 <ArrowLeft size={18} className="me-1" />Voltar à lista
               </Button>
-            </Link>
           </Card.Title>
           <Card.Body>
             <div className="h2">

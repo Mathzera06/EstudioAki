@@ -161,6 +161,17 @@ app.post('/studios/:studio_id/reservations', jwtAuthentication, async (req, res)
         return res.status(400).json('O propetario não pode locar o propio estudio');
     }
 
+      const existingReservation = await Reservation.findOne({
+        where: {
+            user_id,
+            studio_schedule_id
+        }
+    });
+    if (existingReservation) {
+        return res.status(400).json('Já existe uma reserva para esta agenda de estúdio');
+    }
+
+
     // Criar a solicitação de reserva
     try {
         const reservation = await Reservation.create({
