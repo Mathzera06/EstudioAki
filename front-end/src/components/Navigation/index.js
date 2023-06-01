@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import logoImage from "../../assets/images/LogoTransparente.png"
 import { isLoggedIn, getUserData, logout } from '../../helpers/auth'
-import { Home, LogOut, Search, Settings, User } from 'react-feather'
+import { Home, LogOut, Search, Settings, User, Plus } from 'react-feather'
 
 const Navigation = () => {
     return (
@@ -14,14 +14,24 @@ const Navigation = () => {
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto w-100">
-                        <li className="nav-item text-light me-auto mt-3 w-100 d-lg-none">
+                        <li className="nav-item text-light me-2 mt-3 w-100 d-lg-none">
                             <Link to={'/listar-estudios'} className="btn btn-secondary text-dark d-flex align-items-center justify-content-center">
                                 Procurar Estúdios <Search size={20} className='ms-2' />
                             </Link>
                         </li>
-                        <li className="nav-item text-light me-auto d-none d-lg-block">
+                        <li className="nav-item text-light me-2 d-none d-lg-block">
                             <Link to={'/listar-estudios'} className="btn btn-secondary text-dark d-flex align-items-center justify-content-center">
                                 Procurar Estúdios <Search size={20} className='ms-2' />
+                            </Link>
+                        </li>
+                        <li className="nav-item text-light me-auto mt-3 w-100 d-lg-none">
+                            <Link to={'/criar-estudio'} className="btn btn-secondary text-dark d-flex align-items-center justify-content-center ">
+                                Criar Estúdio <Plus size={20} className="ms-2" />
+                            </Link>
+                        </li>
+                        <li className="nav-item text-light me-auto d-none d-lg-block">
+                            <Link to={'/criar-estudio'} className="btn btn-secondary text-dark d-flex align-items-center justify-content-center">
+                                Criar Estúdio <Plus size={20} className="ms-2" />
                             </Link>
                         </li>
                         {isLoggedIn() ? (
