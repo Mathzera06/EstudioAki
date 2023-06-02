@@ -23,6 +23,10 @@ const User = db.define('users', {
     password: {
         type: Sequelize.INTEGER,
         allowNull: false
+    },
+    phone: {
+        type: Sequelize.STRING, 
+        allowNull: true 
     }
 }, { underscored: true })
 

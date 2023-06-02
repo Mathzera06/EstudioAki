@@ -9,6 +9,7 @@ export function UserProfile() {
   const [first_name, setFirstName] = useState("")
   const [last_name, setLastName] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("")
 
   useEffect(() => {
     fetchUserData();
@@ -24,10 +25,11 @@ export function UserProfile() {
           'Accept': 'application/json',
         }
       });
-      const { first_name, last_name, email } = response.data;
+      const { first_name, last_name, email,phone} = response.data;
       setFirstName(first_name)
       setLastName(last_name);
       setEmail(email);
+      setPhone(phone)
     } catch (error) {
       console.error(error);
     }
@@ -39,7 +41,8 @@ export function UserProfile() {
       const response = await axios.put(`http://localhost:9000/my-account`, {
         first_name,
         last_name,
-        email
+        email,
+        phone
       }, {
         headers: {
           'Content-Type': 'application/json',
@@ -53,6 +56,18 @@ export function UserProfile() {
       console.error(error);
       // Handle error message or further actions
     }
+  };
+
+  const formatPhone = (value) => {
+    const phoneNumber = value.replace(/\D/g, '');
+    if (phoneNumber.length === 11) {
+      return `(${phoneNumber.slice(0, 2)}) ${phoneNumber.slice(2, 7)}-${phoneNumber.slice(7)}`;
+    }
+    return value;
+  };
+  const handlePhoneChange = (e) => {
+    const formattedPhone = formatPhone(e.target.value);
+    setPhone(formattedPhone);
   };
 
   return (
@@ -90,6 +105,16 @@ export function UserProfile() {
                           value={last_name}
                           onChange={(e) => setLastName(e.target.value)}
                         />
+                        <Form.Group className="mb-3" controlId="telefoneStudio">
+                            <Form.Label className="mb-3 text-center">Telefone</Form.Label>
+                            <Form.Control
+                              className="mb-3"
+                              type="text"
+                              placeholder="Telefone"
+                              value={phone}
+                              onChange={handlePhoneChange}
+                            />
+                          </Form.Group>
                         <Form.Group className="mb-3" controlId="nomeDoStudio">
                           {/* Conteúdo do Form.Group */}
                         </Form.Group>

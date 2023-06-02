@@ -34,7 +34,8 @@ export function Signup() {
                 first_name: firstname,
                 last_name: lastname,
                 email: email,
-                password: password
+                password: password,
+                phone: phone
             }
         ).then(res => {
             navigate('/');
@@ -48,6 +49,19 @@ export function Signup() {
     const [lastname, setLastName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [phone, setPhone] = useState('')
+
+    const formatPhone = (value) => {
+        const phoneNumber = value.replace(/\D/g, '');
+        if (phoneNumber.length === 11) {
+            return `(${phoneNumber.slice(0, 2)}) ${phoneNumber.slice(2, 7)}-${phoneNumber.slice(7)}`;
+        }
+        return value;
+    };
+    const handlePhoneChange = (e) => {
+        const formattedPhone = formatPhone(e.target.value);
+        setPhone(formattedPhone);
+    };
 
     return (
         <>
@@ -116,6 +130,16 @@ export function Signup() {
                                         placeholder="Endereço de Email"
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
+                                    />
+                                </div>
+                                <div className="input-group mb-3">
+                                    <input
+                                        required
+                                        type="text"
+                                        className="form-control form-control-lg bg-light fs-6"
+                                        placeholder="Telefone"
+                                        value={phone}
+                                        onChange={handlePhoneChange}
                                     />
                                 </div>
                                 <div className="input-group mb-3">

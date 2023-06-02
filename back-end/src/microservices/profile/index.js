@@ -31,7 +31,7 @@ app.get('/my-account', jwtAuthentication, async (req, res) => {
 
 app.put('/my-account', jwtAuthentication, async (req, res) => {
   const userId = req.user.id;
-  const {last_name, first_name, email } = req.body;
+  const {last_name, first_name, email, phone } = req.body;
 
   try {
     const user = await User.findByPk(userId);
@@ -43,6 +43,7 @@ app.put('/my-account', jwtAuthentication, async (req, res) => {
     user.first_name = first_name;
     user.last_name = last_name;
     user.email = email;
+    user.phone = phone;
     await user.save();
 
     return res.json(user);
