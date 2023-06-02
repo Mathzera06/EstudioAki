@@ -13,12 +13,8 @@ const { jwtAuthentication } = require('../authentication/middleware');
 var cors = require('cors');
 app.use(cors());
 
-app.get('/users/:id', jwtAuthentication, async (req, res) => {
-  const userId = parseInt(req.params.id);
-
-  if (userId !== req.user.id) {
-    return res.status(403).json({ error: 'Acesso não autorizado' });
-  }
+app.get('/my-account', jwtAuthentication, async (req, res) => {
+  const userId = req.user.id;
 
   try {
     const user = await User.findByPk(userId);
@@ -33,13 +29,9 @@ app.get('/users/:id', jwtAuthentication, async (req, res) => {
   }
 });
 
-app.put('/users/:id', jwtAuthentication, async (req, res) => {
-  const userId = parseInt(req.params.id);
+app.put('/my-account', jwtAuthentication, async (req, res) => {
+  const userId = req.user.id;
   const {last_name, first_name, email } = req.body;
-
-  if (userId !== req.user.id) {
-    return res.status(403).json({ error: 'Acesso não autorizado', userId, reqUserId: req.params.id });
-  }
 
   try {
     const user = await User.findByPk(userId);

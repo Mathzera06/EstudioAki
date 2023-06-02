@@ -174,10 +174,12 @@ export function StudioDetails({ match }) {
             <div className="h4 d-flex justify-content-between">
               Instrumentos:
               {studio?.user_id === user.id ? (
-                <Button size="sm" variant="success" className="text-white">
-                  <PlusCircle className="me-1" size={17} />
-                  Adicionar Instrumento
-                </Button>
+                <Link to={`/estudios/:${estudioId}/cadastrar-instrumentos`}>
+                  <Button size="sm" variant="success" className="text-white">
+                    <PlusCircle className="me-1" size={17} />
+                    Adicionar Instrumento
+                  </Button>
+                </Link>
               ) : null}
             </div>
             {instruments.length ? (
