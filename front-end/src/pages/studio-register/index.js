@@ -22,7 +22,6 @@ export function Studio_Register() {
         number: number,
         neighbourhood: neighborhood,
         description: description,
-        // phone: phone
       }, {
       headers: {
         'Content-Type': 'application/json',
@@ -45,19 +44,7 @@ export function Studio_Register() {
   const [number, setNumber] = useState('');
   const [neighborhood, setNeighborhood] = useState('');
   const [description, setDescription] = useState('');
-  // const [phone, setPhone] = useState('')
 
-  // const formatPhone = (value) => {
-  //   const phoneNumber = value.replace(/\D/g, '');
-  //   if (phoneNumber.length === 11) {
-  //     return `(${phoneNumber.slice(0, 2)}) ${phoneNumber.slice(2, 7)}-${phoneNumber.slice(7)}`;
-  //   }
-  //   return value;
-  // };
-  // const handlePhoneChange = (e) => {
-  //   const formattedPhone = formatPhone(e.target.value);
-  //   setPhone(formattedPhone);
-  // };
   return (
 
     <>
@@ -85,21 +72,11 @@ export function Studio_Register() {
                             value={studioName}
                             onChange={(e) => setStudioName(e.target.value)}
                           />
-                          {/* <Form.Group className="mb-3" controlId="telefoneStudio">
-                            <Form.Label className="mb-2 text-center">Telefone</Form.Label>
-                            <Form.Control
-                              className="mb-3"
-                              type="text"
-                              placeholder="Telefone"
-                              value={phone}
-                              onChange={handlePhoneChange}
-                            />
-                          </Form.Group> */}
                           <Form.Group
                             className="mb-3"
                             controlId="nomeDoStudio"
                           >
-                            <Form.Label className="mb-3 text-center">
+                            <Form.Label className="mb-1 mt-2 text-center">
                               Endereço
                             </Form.Label>
                             <Form.Control
