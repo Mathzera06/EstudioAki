@@ -28,7 +28,7 @@ app.post('/signup', async (req, res) => {
 
     await User.create(req.body)
         .then(() => {
-            // axios.post('http://localhost:7000/event', {log: "New user"})
+            axios.post('http://localhost:7000/event', {log: "New user"})
             return res.json({
                 error: false,
                 message: "Usuário Cadastrado com sucesso"

@@ -6,14 +6,14 @@ import { Home, LogOut, Search, Settings, User, Plus } from 'react-feather'
 
 const Navigation = () => {
     return (
-        <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
-            <div class="container px-5">
+        <nav className="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+            <div className="container px-5">
                 <Link to="/" className="navbar-brand">
                     <img src={logoImage} alt="Logo" style={{ width: '150px' }} />
                 </Link>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ms-auto w-100">
+                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span className="navbar-toggler-icon"></span></button>
+                <div className="collapse navbar-collapse" id="navbarResponsive">
+                    <ul className="navbar-nav ms-auto w-100">
                         <li className="nav-item text-light me-2 mt-3 w-100 d-lg-none">
                             <Link to={'/listar-estudios'} className="btn btn-secondary text-dark d-flex align-items-center justify-content-center">
                                 Procurar Estúdios <Search size={20} className='ms-2' />
@@ -36,12 +36,12 @@ const Navigation = () => {
                         </li>
                         {isLoggedIn() ? (
                             <li className="nav-item mt-2 mt-lg-0">
-                                <div class="dropdown w-100 ">
-                                    <button class="btn w-100 dropdown-toggle btn-primary d-flex align-items-center justify-content-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <div className="dropdown w-100 ">
+                                    <button className="btn w-100 dropdown-toggle btn-primary d-flex align-items-center justify-content-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         <User size={20} className='me-2' />
                                         {getUserData()?.first_name}
                                     </button>
-                                    <ul class="dropdown-menu">
+                                    <ul className="dropdown-menu">
                                         <li>
                                             <Link className='dropdown-item' to={'/meus-estudios'}>
                                                 <Home size={20} className='me-2' />
@@ -65,13 +65,13 @@ const Navigation = () => {
                             </li>
                         ) : (
                             <>
-                                <li class="nav-item">
+                                <li className="nav-item">
                                     <Link to={'/login'} className='nav-link'>
                                         Entrar
                                     </Link>
                                 </li>
-                                <li class="nav-item bg-dark text-info ms-2">
-                                    <Link class="nav-link text-white" to="/cadastrar">
+                                <li className="nav-item bg-dark text-info ms-2">
+                                    <Link className="nav-link text-white" to="/cadastrar">
                                         Criar Conta
                                     </Link>
                                 </li>

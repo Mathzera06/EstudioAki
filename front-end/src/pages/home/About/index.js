@@ -23,7 +23,7 @@ const About = () => {
 
     return (
         <section id="scroll">
-            <div class="container py-5">
+            <div className="container py-5">
                 <h2 className='mb-5 text-center text-primary'>Aqui você encontra o estúdio ideal</h2>
                 <div className='d-flex justify-content-around flex-wrap'>
                     {cards.map(card => (
@@ -33,11 +33,11 @@ const About = () => {
                                     {card.icon}
                                 </div>
                             </div>
-                            <div class="card-body">
-                                <h6 class="card-subtitle mb-2 text-body-secondary text-center">
+                            <div className="card-body">
+                                <h6 className="card-subtitle mb-2 text-body-secondary text-center">
                                     {card.title}
                                 </h6>
-                                <p class="card-text text-center">
+                                <p className="card-text text-center">
                                     {card.content}
                                 </p>
                             </div>

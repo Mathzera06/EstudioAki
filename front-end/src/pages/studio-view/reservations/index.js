@@ -90,14 +90,14 @@ const Reservations = ({ reservations, studio, fetchReservations }) => {
         <div className="row">
             <div className="col">
                 <p>
-                    <button class="btn btn-outline-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                        <ChevronDown /> {getSectionTitle()} <span class="badge ms-2 text-white text-bg-dark">{reservations.length}</span>
+                    <button className="btn btn-outline-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                        <ChevronDown /> {getSectionTitle()} <span className="badge ms-2 text-white text-bg-dark">{reservations.length}</span>
                     </button>
                 </p>
-                <div class="collapse" id="collapseExample">
-                    <ul class="list-group">
+                <div className="collapse" id="collapseExample">
+                    <ul className="list-group">
                         {reservations.map((reservation, index) => (
-                            <li class={"list-group-item " + (reservation.accepted !== 0 ? 'disabled' : '')} key={index} style={{ maxWidth: '600px' }}>
+                            <li className={"list-group-item " + (reservation.accepted !== 0 ? 'disabled' : '')} key={index} style={{ maxWidth: '600px' }}>
                                 Reserva #{reservation.id} -
                                 <Calendar size={17} className="ms-2" /> Data: {(new Date(reservation.studio_schedule.date)).toLocaleDateString('pt-BR', { year: '2-digit', day: '2-digit', month: '2-digit' })} <span className="ms-1">{reservation.studio_schedule.hour_from}h às {reservation.studio_schedule.hour_to}h</span> -
                                 Status:

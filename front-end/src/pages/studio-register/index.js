@@ -12,6 +12,11 @@ export function Studio_Register() {
   const [errorMsg, setErrorMsg] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
 
+  const getErrorMsg = () => {
+    if (typeof errorMsg === 'string' || errorMsg instanceof String) return errorMsg;
+    return errorMsg.errors;
+  }
+
   const onSubmitFunction = (e) => {
     e.preventDefault();
     axios.post("http://localhost:5000/studios",
@@ -61,77 +66,83 @@ export function Studio_Register() {
                         Cadastre seu Studio
                       </h2>
                       <div className="mb-3">
-                        <Form>
-                          <Form.Label className="mb-2 text-center">
-                            Nome do Studio
+                        <Form.Label className="mb-2 text-center">
+                          Nome do Studio
+                        </Form.Label>
+                        <Form.Control
+                          className="mb-2"
+                          type="text"
+                          required="true"
+                          placeholder="Coloque o nome"
+                          value={studioName}
+                          onChange={(e) => setStudioName(e.target.value)}
+                        />
+                        <Form.Group
+                          className="mb-3"
+                          controlId="nomeDoStudio"
+                        >
+                          <Form.Label className="mb-1 mt-2 text-center">
+                            Endereço
                           </Form.Label>
                           <Form.Control
-                            className="mb-2"
+                            className="mb-3"
                             type="text"
-                            placeholder="Coloque o nome"
-                            value={studioName}
-                            onChange={(e) => setStudioName(e.target.value)}
+                            placeholder="Cidade"
+                            value={address}
+                            required="true"
+                            onChange={(e) => setAddress(e.target.value)}
                           />
-                          <Form.Group
+                          <Form.Control
                             className="mb-3"
-                            controlId="nomeDoStudio"
-                          >
-                            <Form.Label className="mb-1 mt-2 text-center">
-                              Endereço
-                            </Form.Label>
-                            <Form.Control
-                              className="mb-3"
-                              type="text"
-                              placeholder="Cidade"
-                              value={address}
-                              onChange={(e) => setAddress(e.target.value)}
-                            />
-                            <Form.Control
-                              className="mb-3"
-                              type="text"
-                              placeholder="CEP"
-                              value={zipCode}
-                              onChange={(e) => setZipCode(e.target.value)}
-                            />
-                            <Form.Control
-                              className="mb-3"
-                              type="number"
-                              placeholder="Numero"
-                              value={number}
-                              onChange={(e) => setNumber(e.target.value)}
-                            />
+                            type="text"
+                            placeholder="CEP"
+                            required="true"
+                            value={zipCode}
+                            onChange={(e) => setZipCode(e.target.value)}
+                          />
+                          <Form.Control
+                            className="mb-3"
+                            type="number"
+                            placeholder="Numero"
+                            required="true"
+                            value={number}
+                            onChange={(e) => setNumber(e.target.value)}
+                          />
 
-                            <Form.Control className="mb-3"
-                              type="text"
-                              placeholder="Bairro"
-                              value={neighborhood}
-                              onChange={(e) => setNeighborhood(e.target.value)}
-                            />
-                          </Form.Group>
-                          <Form.Group
-                            className="mb-3"
-                            controlId="enderecoStudio"
-                          >
-                          </Form.Group>
-                        </Form>
+                          <Form.Control className="mb-3"
+                            type="text"
+                            placeholder="Bairro"
+                            required="true"
+                            value={neighborhood}
+                            onChange={(e) => setNeighborhood(e.target.value)}
+                          />
+                        </Form.Group>
+                        <Form.Group
+                          className="mb-3"
+                          controlId="enderecoStudio"
+                        >
+                        </Form.Group>
                         <Form.Label className=" mb-3 text-center">
                           Descrição
                         </Form.Label>
-                        <textarea class="mb-3 form-control" rows="5"
+                        <textarea className="mb-3 form-control" rows="5"
                           placeholder='Descreva o seu estudio'
                           value={description}
                           onChange={(e) => setDescription(e.target.value)}
                         ></textarea>
                         {errorMsg ? (
                           <Alert variant='danger' className='mx-2'>
-                            {errorMsg.errors}
+                            {getErrorMsg()}
                           </Alert>
                         ) : null}
                         <button type='submit'
                           className="btn btn-lg btn-primary w-100 fs-6"
                           style={{ background: '#546CCF' }} >
-                          Adicionar Instrumentos
+                          Cadastrar estúdio
                         </button>
+                        <div className="small fst-italic text-center mt-1" style={{ color: 'rgba(0,0,0,0.5)' }}>
+                          Em seguida, você será redirecionado p/ adicionar instrumentos ao estúdio
+                        </div>
                       </div>
                     </div>
                   </form>
