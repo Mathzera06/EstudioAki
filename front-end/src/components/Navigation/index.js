@@ -15,13 +15,13 @@ const Navigation = () => {
                 <div className="collapse navbar-collapse" id="navbarResponsive">
                     <ul className="navbar-nav ms-auto w-100">
                         <li className="nav-item text-light me-2 mt-3 w-100 d-lg-none">
-                            <Link to={'/listar-estudios'} className="btn btn-secondary text-dark d-flex align-items-center justify-content-center">
+                            <Link to={'/listar-estudios'} className="btn btn-light text-dark d-flex align-items-center justify-content-center">
                                 Procurar Estúdios <Search size={20} className='ms-2' />
                             </Link>
                         </li>
-                        <li className="nav-item text-light me-2 d-none d-lg-block">
-                            <Link to={'/listar-estudios'} className="btn btn-secondary text-dark d-flex align-items-center justify-content-center">
-                                Procurar Estúdios <Search size={20} className='ms-2' />
+                        <li className="nav-item mt-1 text-light me-2 d-none d-lg-block">
+                            <Link to={'/listar-estudios'} className="btn btn-sm btn-light text-dark d-flex align-items-center justify-content-center">
+                                Procurar Estúdios <Search size={18} className='ms-2' />
                             </Link>
                         </li>
                         <li className="nav-item text-light me-auto mt-3 w-100 d-lg-none">
@@ -29,8 +29,8 @@ const Navigation = () => {
                                 Criar Estúdio <Plus size={20} className="ms-2" />
                             </Link>
                         </li>
-                        <li className="nav-item text-light me-auto d-none d-lg-block">
-                            <Link to={'/criar-estudio'} className="btn btn-secondary text-dark d-flex align-items-center justify-content-center">
+                        <li className="nav-item mt-1 ms-2 text-light me-auto d-none d-lg-block">
+                            <Link to={'/criar-estudio'} className="btn btn-sm btn-secondary text-dark d-flex align-items-center justify-content-center">
                                 Criar Estúdio <Plus size={20} className="ms-2" />
                             </Link>
                         </li>

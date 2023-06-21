@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
-import { Button, Card, Container } from 'react-bootstrap'
+import { Badge, Button, Card, Container } from 'react-bootstrap'
 import Navigation from "../../components/Navigation";
-import { ArrowDown, ArrowLeft, ArrowRight, Calendar, ChevronDown, PlusCircle } from "react-feather";
+import { ArrowDown, ArrowLeft, ArrowRight, Calendar, ChevronDown, PlusCircle, Trash } from "react-feather";
 import './style.css'
 import { getUserAccessToken, getUserData } from "../../helpers/auth";
 import Reservations from "./reservations";
@@ -125,6 +125,24 @@ export function StudioDetails({ match }) {
     return selectedSchedules.some((selectedSchedule) => selectedSchedule.id === schedule.id);
   };
 
+  const deleteSchedules = () => {
+    axios.post(`http://localhost:8000/studios/${estudioId}/schedules/delete_list`, {
+      schedule_id_list: selectedSchedules.map(schedule => schedule.id)
+    }, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${getUserAccessToken()}`
+      },
+    }).then(() => {
+      toast.success('Horários(s) excluído(s) com sucesso!');
+      fetchStudioSchedule();
+      setSelectedSchedules([]);
+    }).catch(error => {
+      toast.error('Erro ao excluir horários(s)')
+    })
+  }
+
   const handleReserveClick = async () => {
     try {
       const response = await axios.post(
@@ -159,9 +177,9 @@ export function StudioDetails({ match }) {
       <Container>
         <Card className="p-4 mx-auto" style={{ maxWidth: '1100px', marginTop: '100px' }}>
           <Card.Title>
-              <Button size='sm' onClick={() => window.history.back()} >
-                <ArrowLeft size={18} className="me-1" />Voltar à lista
-              </Button>
+            <Button size='sm' onClick={() => window.history.back()} >
+              <ArrowLeft size={18} className="me-1" />Voltar à lista
+            </Button>
           </Card.Title>
           <Card.Body>
             <div className="h2">
@@ -225,6 +243,18 @@ export function StudioDetails({ match }) {
             ) : (
               <div className="h6 fw-normal">Estúdio não possui horários disponíveis</div>
             )}
+            {studio?.user_id === user.id && selectedSchedules.length ? (
+              <Button
+                onClick={() => deleteSchedules()}
+                size="sm"
+                variant="danger"
+                className="d-flex align-items-center justify-content-center mt-3"
+              >
+                <Badge className="m-0 mt-1 me-1 bg-light text-dark">{selectedSchedules.length}</Badge>
+                Excluir horário(s)
+                <Trash className="ms-1" size={16} />
+              </Button>
+            ) : null}
             {studio?.user_id !== user.id ? (
               <>
                 <p className="text-dark mt-2">

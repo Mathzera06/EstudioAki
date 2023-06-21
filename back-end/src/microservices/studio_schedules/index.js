@@ -249,6 +249,30 @@ app.get('/studios/:studio_id/schedules', async (req, res) => {
     return res.send(schedules, 200);
 });
 
+app.post('/studios/:studio_id/schedules/delete_list', jwtAuthentication, async (req, res) => {
+    const studio_id = parseInt(req.params.studio_id);
+    const user_id = req.user.id;
+
+    // Verificar se o estúdio é válido
+    const studio = await Studio.findByPk(studio_id);
+    if (!studio) return res.status(400).json('Estúdio inválido');
+    if (studio.user_id !== user_id) return res.json('Não autorizado', 400);
+
+    let scheduleIdList = req.body.schedule_id_list;
+    if (!scheduleIdList || !scheduleIdList.length) 
+        return res.json('É necessário informar no mínimo 1 reserva p/ exclusão').status(400);
+    try {
+        for (const scheduleId of scheduleIdList) {
+            let schedule = await StudioSchedule.findByPk(scheduleId);
+            if (schedule) schedule.destroy();
+        }
+    } catch (error) {
+        return res.status(400).json('Erro ao excluir reserva(s)');
+    }
+
+    return res.status(200).json('Reserva(s) excluida(s) com sucesso!');
+})
+
 app.listen(8000, () => {
     console.log("Studio Schedules is running. Port 8000");
 });
