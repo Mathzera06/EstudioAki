@@ -149,39 +149,49 @@ app.post('/studios/:studio_id/reservations', jwtAuthentication, async (req, res)
     const user_id = req.user.id;
     const studio_schedule_id = parseInt(req.body.studio_schedule_id); // ID da reserva do estúdio
 
+    const studio_schedule_ids = req.body.studio_schedule_ids; // IDs de reservas do estúdio
+    if (!studio_schedule_ids?.length)
+        return res.status(400).json('É necessário informar pelo menos 1 data para reserva');
+
     // Verificar se o estúdio é válido
     const studio = await Studio.findByPk(studio_id);
-    if (!studio) {
-        return res.status(400).json('Estúdio inválido');
-    }
+    if (!studio) return res.status(400).json('Estúdio inválido');
 
     // Verificar se o usuário é o proprietário/locador do estúdio
-    if (studio.user_id === user_id) {
-        return res.status(400).json('O propetario não pode locar o propio estudio');
-    }
+    if (studio.user_id === user_id) return res.status(400).json('O propetario não pode locar o propio estudio');
 
-      const existingReservation = await Reservation.findOne({
-        where: {
-            user_id,
-            studio_schedule_id
-        }
-    });
-    if (existingReservation) {
-        return res.status(400).json('Já existe uma reserva para esta agenda de estúdio');
-    }
-
-
-    // Criar a solicitação de reserva
-    try {
-        const reservation = await Reservation.create({
-            user_id,
-            studio_schedule_id,
+    // Validate schedules
+    for (const studio_schedule_id of studio_schedule_ids) {
+        const schedule = await StudioSchedule.findOne({
+            where: {
+                id: studio_schedule_id,
+                studio_id
+            }
         });
-        return res.status(200).json('Solicitação de reserva criada com sucesso!');
-    } catch (error) {
-        console.log(error);
-        return res.status(500).json('Erro ao criar a solicitação de reserva');
+        if (!schedule)
+            return res.status(400).json(`O horário c/ ID #${studio_schedule_id} é inválido para o estúdio informado`);
+
+        const existingReservation = await Reservation.findOne({
+            where: {
+                user_id,
+                studio_schedule_id
+            }
+        });
+        if (!existingReservation) {
+            // Criar a solicitação de reserva
+            try {
+                const reservation = await Reservation.create({
+                    user_id,
+                    studio_schedule_id,
+                });
+            } catch (error) {
+                console.log(error);
+                return res.status(500).json('Erro ao criar a solicitação de reserva');
+            }
+        }
     }
+
+    return res.status(200).json('Reserva(s) solicitada(s) com sucesso!');
 });
 
 app.post('/studios/:studio_id/schedules', jwtAuthentication, async (req, res) => {
