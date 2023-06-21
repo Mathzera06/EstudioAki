@@ -71,7 +71,6 @@ app.delete('/studios/:studio_id/reservations/:reservation_id', jwtAuthentication
     // Verificar se o a reserva eh válida
     const reservation = await Reservation.findByPk(reservation_id);
     if (!reservation) return res.status(400).json('Reserva inválida');
-    if (reservation.accepted !== 0) return res.status(400).json('Reserva inválida p/ exclusão');
 
     if (reservation.user_id !== user_id) {
         return res.status(400).json('Somente o solicitante pode excluir a reserva');
