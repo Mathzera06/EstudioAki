@@ -27,10 +27,13 @@ app.post('/studios', jwtAuthentication, async (req, res) => {
         neighbourhood,
         number,
         zip_code,
+        city,
+        state_uf,
+        hour_price
     } = req.body;
 
     // Blank fields validation
-    const requiredFields = { name, address, neighbourhood, zip_code};
+    const requiredFields = { name, address, neighbourhood, zip_code, hour_price, city, state_uf };
     const blankFields = Object.keys(requiredFields).filter(key => !requiredFields[key]);
     if (blankFields.length) {
         return res.json({
@@ -42,14 +45,14 @@ app.post('/studios', jwtAuthentication, async (req, res) => {
     if (!user) return res.send('Usuário não encontrado', 400);
 
     const studio = await Studio.findOne({
-        where: { 
+        where: {
             name,
             user_id: req.user.id
         }
     });
     if (studio) return res.json('Não é permitido o cadastro de estúdios com o mesmo nome', 400);
 
-    const studioData = { ...requiredFields, complement, number, user_id:req.user.id };
+    const studioData = { ...requiredFields, complement, number, user_id: req.user.id };
     await Studio.create(studioData).then((estudio) => {
         //axios.post('http://localhost:7000/event')
         return res.json(estudio.dataValues, 201);
@@ -60,7 +63,7 @@ app.post('/studios', jwtAuthentication, async (req, res) => {
 });
 
 app.post('/event', (req, res) => {
-    const {evento} = req.body
+    const { evento } = req.body
     console.log(evento)
     return res.send(200)
 })
@@ -86,11 +89,11 @@ app.post('/studios/:id/instruments', jwtAuthentication, async (req, res) => {
     const studio = await Studio.findByPk(studio_id);
     if (!studio) return res.json('Estúdio inválido', 400);
 
-    await Instruments.create({ 
+    await Instruments.create({
         name,
         description,
         studio_id
-     }).then(() => {
+    }).then(() => {
         return res.json('Instrumento adicionado com sucesso', 201);
     }).catch(error => {
         console.log(error);
@@ -98,9 +101,9 @@ app.post('/studios/:id/instruments', jwtAuthentication, async (req, res) => {
     });
 })
 
-app.get('/studios/:id/instruments', async(req, res) => {
+app.get('/studios/:id/instruments', async (req, res) => {
     const studio_id = req.params.id;
-    
+
     const studio = await Studio.findByPk(studio_id);
     if (!studio) return res.json('Estúdio não encontrado', 400);
 
@@ -110,12 +113,12 @@ app.get('/studios/:id/instruments', async(req, res) => {
     return res.json(instruments)
 });
 
-app.get('/studios/:id', async(req, res) => {
+app.get('/studios/:id', async (req, res) => {
     const studio_id = req.params.id;
 
     const studio = await Studio.findByPk(studio_id);
-    if (!studio){
-        return res.status(404).json({error: "Estúdio não encontrado"});
+    if (!studio) {
+        return res.status(404).json({ error: "Estúdio não encontrado" });
     }
     return res.json(studio, 200)
 })

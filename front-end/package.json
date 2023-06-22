@@ -14,6 +14,7 @@
     "acorn-jsx": "^5.3.2",
     "axios": "^1.4.0",
     "bootstrap": "^5.2.3",
+    "cep-promise": "^4.4.0",
     "formik": "^2.4.0",
     "mdb-react-ui-kit": "^6.0.0",
     "primeflex": "^3.3.0",
