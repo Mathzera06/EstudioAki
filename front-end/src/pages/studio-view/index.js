@@ -87,7 +87,11 @@ export function StudioDetails({ match }) {
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
+            Authorization: `Bearer ${getUserAccessToken()}`
           },
+          params: {
+            user_id: getUserData()?.id
+          }
         }
       );
       setSchedules(response.data);
@@ -148,7 +152,7 @@ export function StudioDetails({ match }) {
       const response = await axios.post(
         `http://localhost:8000/studios/${estudioId}/reservations`,
         {
-          studio_schedule_id: schedules[0]?.id
+          studio_schedule_ids: selectedSchedules.map(schedule => schedule.id)
         },
         {
           headers: {
@@ -159,6 +163,7 @@ export function StudioDetails({ match }) {
         }
       );
       toast.success('Reserva solicitada com sucesso!');
+      fetchStudioSchedule();
       fetchReservations();
     } catch (error) {
       console.error(error);
@@ -184,6 +189,9 @@ export function StudioDetails({ match }) {
           <Card.Body>
             <div className="h2">
               <span className="fw-normal">Estúdio: </span> {studio.name}
+            </div>
+            <div>
+              Preço p/ hora:<Badge className="ms-2">{parseFloat(studio.hour_price).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</Badge>
             </div>
             <hr />
             <p>
@@ -229,14 +237,29 @@ export function StudioDetails({ match }) {
               <div className="d-flex flex-wrap">
                 {schedules.map((schedule, index) => (
                   <Button
+                    disabled={schedule.disabled}
                     key={index}
                     size="sm"
-                    className={`m-2 d-flex align-items-center ${isScheduleSelected(schedule) ? 'btn-schedule-selected' : ''}`}
+                    style={{ height: '50px' }}
+                    className={`m-2 d-flex flex-column flex-vertical justify-content-center align-items-center ${isScheduleSelected(schedule) ? 'btn-schedule-selected' : ''}`}
                     onClick={() => handleScheduleClick(schedule)}
                   >
-                    <Calendar size={19} className="me-2" />
-                    {(new Date(schedule.date)).toLocaleDateString('pt-BR', { year: '2-digit', day: '2-digit', month: '2-digit' })}
-                    <span className="ms-1">{schedule.hour_from}h às {schedule.hour_to}h</span>
+                    <div>
+                      <Calendar size={19} className="me-2" />
+                      {(new Date(schedule.date)).toLocaleDateString('pt-BR', { year: '2-digit', day: '2-digit', month: '2-digit' })}
+                      <span className="ms-1">{schedule.hour_from}h às {schedule.hour_to}h</span>
+                    </div>
+                    {schedule.disabled ? (
+                      <small>
+                        {(schedule.hasAcceptedReservation && schedule.userAlreadyMadeReservation) ? (
+                          <Badge className="bg-light text-dark">Já reservado por você</Badge>
+                        ) : schedule.hasAcceptedReservation ? (
+                          <Badge className="bg-success text-light">Já reservado</Badge>
+                        ) : (
+                          <Badge className="bg-success text-light">Já solicitado</Badge>
+                        )}
+                      </small>
+                    ) : null}
                   </Button>
                 ))}
               </div>
@@ -277,6 +300,7 @@ export function StudioDetails({ match }) {
                 reservations={reservations}
                 studio={studio}
                 fetchReservations={fetchReservations}
+                fetchStudioSchedule={fetchStudioSchedule}
               />
             ) : null}
           </Card.Body>

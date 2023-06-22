@@ -78,13 +78,13 @@ const Instrument_Register = () => {
                   </h3>
                   <div className='text-center my-3'>
                     <div className="btn-group" role="group" aria-label="Basic radio toggle button group">
-                      <input type="radio" disabled className="btn-check cursor-normal" name="btnradio" id="btnradio1" />
-                      <label className="btn btn-sm btn-outline-primary cursor-normal btn-disabled" for="btnradio1">
+                      <input type="radio" disabled className="btn-check cursor-normal" readOnly name="btnradio" id="btnradio1" />
+                      <label className="btn btn-sm btn-outline-primary cursor-normal btn-disabled" htmlFor="btnradio1">
                         1 - Informações do estúdio
                       </label>
 
-                      <input type="radio" className="btn-check" name="btnradio" id="btnradio2" checked />
-                      <label className="btn btn-sm btn-outline-primary" for="btnradio2">
+                      <input type="radio" className="btn-check" readOnly name="btnradio" id="btnradio2" checked />
+                      <label className="btn btn-sm btn-outline-primary" htmlFor="btnradio2">
                         2 - Instrumentos
                       </label>
                     </div>

@@ -3,7 +3,7 @@ import { getUserAccessToken, getUserData } from "../../../helpers/auth"
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const Reservations = ({ reservations, studio, fetchReservations }) => {
+const Reservations = ({ reservations, studio, fetchReservations, fetchStudioSchedule }) => {
     const user = getUserData();
     const reservationStatuses = {
         '0': {
@@ -41,6 +41,7 @@ const Reservations = ({ reservations, studio, fetchReservations }) => {
             );
             toast.success('Solicitação de reserva excluída c/ sucesso!');
             fetchReservations();
+            fetchStudioSchedule();
         } catch (error) {
             console.error(error);
         }
@@ -61,6 +62,7 @@ const Reservations = ({ reservations, studio, fetchReservations }) => {
             );
             toast.success('Solicitação de reserva aceita c/ sucesso!');
             fetchReservations();
+            fetchStudioSchedule();
         } catch (error) {
             console.error(error);
         }
@@ -81,6 +83,7 @@ const Reservations = ({ reservations, studio, fetchReservations }) => {
             );
             toast.success('Solicitação de reserva cancelada!');
             fetchReservations();
+            fetchStudioSchedule();
         } catch (error) {
             console.error(error);
         }
@@ -97,14 +100,17 @@ const Reservations = ({ reservations, studio, fetchReservations }) => {
                 <div className="collapse" id="collapseExample">
                     <ul className="list-group">
                         {reservations.map((reservation, index) => (
-                            <li className={"list-group-item " + (reservation.accepted !== 0 ? 'disabled' : '')} key={index} style={{ maxWidth: '600px' }}>
+                            <li className={"list-group-item "} key={index} style={{ maxWidth: '800px' }}>
                                 Reserva #{reservation.id} -
                                 <Calendar size={17} className="ms-2" /> Data: {(new Date(reservation.studio_schedule.date)).toLocaleDateString('pt-BR', { year: '2-digit', day: '2-digit', month: '2-digit' })} <span className="ms-1">{reservation.studio_schedule.hour_from}h às {reservation.studio_schedule.hour_to}h</span> -
                                 Status:
                                 <span className={reservationStatuses[reservation.accepted].class + ' ms-1 fw-bold'}>
                                     {reservationStatuses[reservation.accepted].text}
                                 </span>
-                                {reservation.user_id === user.id && reservation.accepted === 0 ? (
+                                <span className="ms-2">
+                                    ({reservation?.user?.first_name} - {reservation?.user?.phone})
+                                </span>
+                                {reservation.user_id === user.id ? (
                                     <button
                                         className="btn btn-danger btn-sm ms-4 me-2"
                                         onClick={() => deleteReservationRequest(reservation)}

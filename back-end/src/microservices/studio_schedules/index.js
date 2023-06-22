@@ -246,15 +246,46 @@ app.post('/studios/:studio_id/schedules', jwtAuthentication, async (req, res) =>
 
 app.get('/studios/:studio_id/schedules', async (req, res) => {
     const studio_id = req.params.studio_id;
+    const user_id = req.query?.user_id
 
     const studio = await Studio.findByPk(studio_id);
     if (!studio) return res.json('Estúdio inválido', 400);
 
-    const schedules = await StudioSchedule.findAll({
+    let schedules = await StudioSchedule.findAll({
         where: {
             studio_id
         }
     });
+    schedules = await Promise.all(schedules.map(async schedule => {
+        let hasAcceptedReservation = false;
+        hasAcceptedReservation = await Reservation.findOne({
+            where: {
+                accepted: 1,
+                studio_schedule_id: schedule.id
+            }
+        });
+
+        let userAlreadyMadeReservation = false;
+        console.log('user has id', user_id);
+        if (user_id) {
+            userAlreadyMadeReservation = await Reservation.findOne({
+                where: {
+                    user_id,    
+                    studio_schedule_id: schedule.id
+                }
+            });
+            console.log('user_id', user_id);
+            console.log('studio_schedule_id', schedule.id);
+        }
+
+        return {
+            ...schedule.dataValues,
+            hasAcceptedReservation,
+            userAlreadyMadeReservation,
+            disabled: (hasAcceptedReservation || userAlreadyMadeReservation) ? true : false,
+        }
+    }));
+
     return res.send(schedules, 200);
 });
 
@@ -268,7 +299,7 @@ app.post('/studios/:studio_id/schedules/delete_list', jwtAuthentication, async (
     if (studio.user_id !== user_id) return res.json('Não autorizado', 400);
 
     let scheduleIdList = req.body.schedule_id_list;
-    if (!scheduleIdList || !scheduleIdList.length) 
+    if (!scheduleIdList || !scheduleIdList.length)
         return res.json('É necessário informar no mínimo 1 reserva p/ exclusão').status(400);
     try {
         for (const scheduleId of scheduleIdList) {
