@@ -32,6 +32,18 @@ const Studio = db.define('studios', {
     zip_code: {
         type: Sequelize.STRING,
         allowNull: false
+    },
+    hour_price: {
+        type: Sequelize.DECIMAL,
+        allowNull: false
+    },
+    state_uf: {
+        type: Sequelize.STRING,
+        allowNull: false,
+    },
+    city: {
+        type: Sequelize.STRING,
+        allowNull: false,
     }
 }, { underscored: true });
 
